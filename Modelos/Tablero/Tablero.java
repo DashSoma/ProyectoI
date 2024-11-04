@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Modelos.Tablero;
+package ProyectoI.Modelos.Tablero;
 
-import Modelos.Ficha;
-import Modelos.Juego.Ficha;
-import Modelos.Juego.Jugador;
-import Modelos.Jugador;
-import Vistas.VistaJuego;
-import Vistas.VistaSolicitud;
+import ProyectoI.Modelos.Ficha;
+import ProyectoI.Modelos.Jugador;
+import ProyectoI.Vistas.FrmJuego;
+import ProyectoI.Vistas.FrmVistaSolicitud;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -25,7 +19,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author User
+ * @author Chrisp
  */
 public class Tablero extends JPanel {
 
@@ -43,12 +37,12 @@ public class Tablero extends JPanel {
     String jugadorNombre2 = jugador.getJugador2();
     int jugadorActual = jugador.getJugadorActual();
 
-    VistaJuego view;
+    FrmJuego view;
 
     public String ultimoGanador = "";
     Clip clip;
 
-    public Tablero(VistaJuego view) {
+    public Tablero(FrmJuego view) {
         this.view = view;
         tablero = new int[tamaño][tamaño];
         jugadorActual = ficha.getNegro();
@@ -93,10 +87,6 @@ public class Tablero extends JPanel {
                 }
             }
         }
-
-        // Mostrar los contadores en la esquina superior izquierda
-//        g.drawString("Jugador 1 (Negro): " + contadorJugador1, 10, 20);
-//        g.drawString("Jugador 2 (Blanco): " + contadorJugador2, 10, 40);
     }
 
     public int obtenerTamañoCelda() {
@@ -288,7 +278,7 @@ public class Tablero extends JPanel {
 
         boolean nombresValidos = false;
         while (!nombresValidos) {
-            VistaSolicitud v = new VistaSolicitud(null, true, view);
+            FrmVistaSolicitud v = new FrmVistaSolicitud(null, true, view);
             v.setVisible(true);
 
             // Verifica si el usuario ha cancelado

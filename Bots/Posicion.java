@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package Bots;
-
-import Modelos.Juego.*;
+package ProyectoI.Bots;
 
 /**
  *
- * @author Usuario
+ * @author daniTini
  */
 public class Posicion {
-    
+
     private int fila;
     private int columna;
 
@@ -27,5 +21,5 @@ public class Posicion {
     public int getColumna() {
         return columna;
     }
-    
+
 }

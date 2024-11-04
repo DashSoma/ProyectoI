@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package Vistas;
+package ProyectoI.Vistas;
 
-import Bots.Bot;
-import Modelos.Tablero.Tablero;
-import Vistas.FrmAcercaDe;
-import Vistas.VistaJuego;
+
+import ProyectoI.Bots.Bot;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -17,10 +11,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -67,8 +57,8 @@ public class FrmVistaMenu extends javax.swing.JFrame {
     }
 
     public void llamarTableroBot2(int modoJuego) {
-        VistaJuego view = new VistaJuego(null, true);
-        Bot bot = new Bot(new VistaJuego(null, true));
+        FrmJuego view = new FrmJuego(null, true);
+        Bot bot = new Bot(new FrmJuego(null, true));
         view.add(bot);
         System.out.println("Modo: Humano vs Bot");
         bot.iniciarJuegobot();
@@ -222,13 +212,13 @@ public class FrmVistaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciarActionPerformed
-        VistaJuego view = new VistaJuego(this, true);
+        FrmJuego view = new FrmJuego(this, true);
         MusicaInicio(false);
         view.setVisible(true);
     }//GEN-LAST:event_btnInciarActionPerformed
 
     private void btnInciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1ActionPerformed
-        VistaJuego view = new VistaJuego(this, true);
+        FrmJuego view = new FrmJuego(this, true);
         MusicaInicio(false);
         llamarTableroBot2(1);
         view.setVisible(true);
@@ -241,9 +231,9 @@ public class FrmVistaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
-        FrmAcercaDe frm = new FrmAcercaDe(null, true);
-        frm.setLocationRelativeTo(null);
-        frm.setVisible(true);
+//        FrmAcercaDe frm = new FrmAcercaDe(null, true);
+//        frm.setLocationRelativeTo(null);
+//        frm.setVisible(true);
     }//GEN-LAST:event_btnInformacionActionPerformed
 
     /**

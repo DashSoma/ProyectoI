@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package Vistas;
+package ProyectoI.Vistas;
 
-import Vistas.VistaJuego;
+import ProyectoI.Vistas.FrmJuego;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 
 /**
  *
@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  */
 public class FrmVistaSolicitud extends javax.swing.JDialog {
     
-    VistaJuego view;
+    FrmJuego view;
     private String jugador1;
     private String jugador2;
 
@@ -24,7 +24,7 @@ public class FrmVistaSolicitud extends javax.swing.JDialog {
      * @param modal
      * @param view
      */
-    public FrmVistaSolicitud(java.awt.Frame parent, boolean modal, VistaJuego view) {
+    public FrmVistaSolicitud(java.awt.Frame parent, boolean modal, FrmJuego view) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -173,7 +173,7 @@ public class FrmVistaSolicitud extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             // Inicializa la instancia de VistaJuego antes de pasarla a FrmVistaSolicitud
-            VistaJuego view = new VistaJuego(new javax.swing.JFrame(), true);
+            FrmJuego view = new FrmJuego(new javax.swing.JFrame(), true);
             FrmVistaSolicitud dialog = new FrmVistaSolicitud(new javax.swing.JFrame(), true, view);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
