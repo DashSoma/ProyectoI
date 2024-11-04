@@ -384,7 +384,7 @@ public class Tablero extends JPanel {
 
     public void mostrarUltimoGanador() {
 
-        String mensaje;
+           String mensaje;
         if (contadorJugador1 > contadorJugador2) {
             mensaje = "Ganó " + jugadorNombre1 + " con " + contadorJugador1 + " fichas.";
             ultimoGanador = jugadorNombre1;
