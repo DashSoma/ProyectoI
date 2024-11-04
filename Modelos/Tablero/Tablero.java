@@ -385,17 +385,28 @@ public class Tablero extends JPanel {
     public void mostrarUltimoGanador() {
 
         String mensaje;
-        if (!juegoEnProgreso && ultimoGanador.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "¡El juego sigue sin un ganador definido!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        } else if (!juegoEnProgreso) {
-            if ("Empate".equals(ultimoGanador)) {
-                mensaje = "El último resultado fue un empate.";
-            } else {
-                mensaje = "El último ganador es: " + ultimoGanador;
-            }
-            JOptionPane.showMessageDialog(this, mensaje, "Último Ganador", JOptionPane.INFORMATION_MESSAGE);
+        if (contadorJugador1 > contadorJugador2) {
+            mensaje = "Ganó " + jugadorNombre1 + " con " + contadorJugador1 + " fichas.";
+            ultimoGanador = jugadorNombre1;
+        } else if (contadorJugador2 > contadorJugador1) {
+            mensaje = "Ganó " + jugadorNombre2 + " con " + contadorJugador2 + " fichas.";
+            ultimoGanador = jugadorNombre2;
         } else {
-            JOptionPane.showMessageDialog(this, "¡El juego aún está en progreso!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
+            ultimoGanador = "Empate";
+        }
+
+        JOptionPane.showMessageDialog(view, mensaje);
+        actualizarTurno();
+        reestablecerVariables();
+        tableroBorrado();
+        int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            juegoEnProgreso = false;
+            iniciarJuego();
+        } else {
+            juegoEnProgreso = false;
+            view.dispose();
         }
     }
 
