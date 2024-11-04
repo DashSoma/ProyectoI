@@ -26,12 +26,7 @@ public class FrmJuego extends javax.swing.JDialog {
     int jugadorActual = jugador.getJugadorActual();
     private String lblTurno;
 
-    /**
-     * Crea una nueva instancia de View y configura la interfaz gráfica.
-     * Inicializa los jugadores, el tablero y el menú.
-     * @param parent
-     * @param modal
-     */
+    
     public FrmJuego(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
@@ -39,13 +34,10 @@ public class FrmJuego extends javax.swing.JDialog {
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
-        // Crear Jugadores 
         jugador1 = new Jugador("Jugador 1", 1);
         jugador2 = new Jugador("Jugador 2", 2);
-        // Crear tablero
         tablero = new Tablero(this);
 
-        // Crear panel contenedor con borde vacío
         JPanel contenedorTablero = new JPanel(new BorderLayout());
         contenedorTablero.setBorder(new EmptyBorder(80, 80, 80, 80));
         contenedorTablero.add(tablero, BorderLayout.CENTER);
@@ -271,7 +263,8 @@ public class FrmJuego extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        tablero.iniciarJuego();
+    
+        
     }//GEN-LAST:event_formWindowOpened
 
     /**

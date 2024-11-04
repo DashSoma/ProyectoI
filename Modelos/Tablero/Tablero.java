@@ -383,7 +383,6 @@ public class Tablero extends JPanel {
     }
 
     public void mostrarUltimoGanador() {
-
         String mensaje;
         if (!juegoEnProgreso && ultimoGanador.isEmpty()) {
             JOptionPane.showMessageDialog(this, "¡El juego sigue sin un ganador definido!", "Aviso", JOptionPane.WARNING_MESSAGE);

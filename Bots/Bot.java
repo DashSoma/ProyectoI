@@ -181,7 +181,7 @@ public class Bot extends JPanel {
         return false;
     }
 
-    public void iniciarJuegobot() {
+    public void MostrarTabla() {
         jugadorActual = ficha.getNegro();
         tablero = new int[tamaño][tamaño];
         tablero[5][5] = ficha.getBlanco();
@@ -195,6 +195,33 @@ public class Bot extends JPanel {
         actualizarTurno("");
     }
 
+     public Boolean iniciarJuegoBot(boolean par) {
+        Object[] opciones = {"Jugador vs Bot"};
+        int modoSeleccionado = JOptionPane.showOptionDialog(view,
+                "Selecciona el modo de juego:",
+                "Modo de Juego",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]);
+
+        boolean modoBot = modoSeleccionado == 1; 
+
+        jugador1 = JOptionPane.showInputDialog("Ingresa el nombre del Jugador (Negro):");
+        //jugador2 = modoBot ? "CristianoRonaldo" : JOptionPane.showInputDialog("");
+
+        actualizarTurno("Turno de: " + jugador1); 
+        MostrarTabla(); 
+        juegoEnProgreso = true; 
+
+        if (modoBot) {
+            JOptionPane.showMessageDialog(view, "Modo Bot activado. ¡Buena suerte!", "Modo Bot", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return false;
+
+    }
+    
     public boolean tablaLlena() {
         for (filaSeleccionada = 0; filaSeleccionada < tamaño; filaSeleccionada++) {
             for (columnaSeleccionada = 0; columnaSeleccionada < tamaño; columnaSeleccionada++) {

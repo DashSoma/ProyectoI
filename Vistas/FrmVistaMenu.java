@@ -2,6 +2,7 @@ package Vistas;
 
 
 import Bots.Bot;
+import Modelos.Tablero.Tablero;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -41,7 +42,6 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         int frameWidth = getWidth();
         int frameHeight = getHeight();
 
-        // Calcula la posición para el botón 1 (btnIniciar1)
         int x1 = (int) (frameWidth * 0.35);
         int y1 = (int) (frameHeight * 0.73);
 
@@ -61,24 +61,35 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         Bot bot = new Bot(new FrmJuego(null, true));
         view.add(bot);
         System.out.println("Modo: Humano vs Bot");
-        bot.iniciarJuegobot();
+        bot.iniciarJuegoBot(false);
         view.setVisible(true);
 
     }
 
+    
+     public void llamarTablero(int modoJuego) {
+        FrmJuego view = new FrmJuego(this, true);
+        Tablero tablero = new Tablero(new FrmJuego(this, true));
+        view.add(tablero);
+        System.out.println("Modo: Humano vs humano");
+        tablero.iniciarJuego();
+        view.setVisible(true);
+
+    }
+    
+    
+    
     public void MusicaInicio(boolean estado) {
         try {
             if (isMusicPlaying) {
-                // Si la música está sonando, deténla
                 if (clip != null && clip.isRunning()) {
                     clip.stop();
                     clip.close();
                     clip = null;
-                    isMusicPlaying = false; // Actualiza el estado
+                    isMusicPlaying = false; 
                     
                 }
             } else {
-                // Si la música no está sonando, iníciala
                 java.net.URL resource = getClass().getResource("/musica/Inicio.wav");
                 if (resource == null) {
                     System.err.println("No se encontró el archivo de audio en la ruta especificada.");
@@ -88,9 +99,9 @@ public class FrmVistaMenu extends javax.swing.JFrame {
                 clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                isMusicPlaying = true; // Actualiza el estado
+                isMusicPlaying = true; 
                 FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                volumeControl.setValue(-10.0f); // Ajusta este valor para cambiar el volumen
+                volumeControl.setValue(-10.0f); 
                 
             }
         } catch (Exception e) {
@@ -212,17 +223,15 @@ public class FrmVistaMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciarActionPerformed
-        FrmJuego view = new FrmJuego(this, true);
+       llamarTablero(2);
         MusicaInicio(false);
-        view.setVisible(true);
+      
     }//GEN-LAST:event_btnInciarActionPerformed
 
     private void btnInciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1ActionPerformed
-        FrmJuego view = new FrmJuego(this, true);
+
         MusicaInicio(false);
         llamarTableroBot2(1);
-        view.setVisible(true);
-
 
     }//GEN-LAST:event_btnInciar1ActionPerformed
 
