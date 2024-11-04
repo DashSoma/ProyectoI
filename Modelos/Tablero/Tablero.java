@@ -14,7 +14,6 @@ import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import javax.swing.JPanel;
 
 /**
@@ -383,7 +382,6 @@ public class Tablero extends JPanel {
     }
 
     public void mostrarUltimoGanador() {
-<<<<<<< HEAD
         String mensaje;
         if (!juegoEnProgreso && ultimoGanador.isEmpty()) {
             JOptionPane.showMessageDialog(this, "¡El juego sigue sin un ganador definido!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -394,32 +392,29 @@ public class Tablero extends JPanel {
                 mensaje = "El último ganador es: " + ultimoGanador;
             }
             JOptionPane.showMessageDialog(this, mensaje, "Último Ganador", JOptionPane.INFORMATION_MESSAGE);
-=======
+            if (contadorJugador1 > contadorJugador2) {
+                mensaje = "Ganó " + jugadorNombre1 + " con " + contadorJugador1 + " fichas.";
+                ultimoGanador = jugadorNombre1;
+            } else if (contadorJugador2 > contadorJugador1) {
+                mensaje = "Ganó " + jugadorNombre2 + " con " + contadorJugador2 + " fichas.";
+                ultimoGanador = jugadorNombre2;
+            } else {
+                mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
+                ultimoGanador = "Empate";
+            }
 
-           String mensaje;
-        if (contadorJugador1 > contadorJugador2) {
-            mensaje = "Ganó " + jugadorNombre1 + " con " + contadorJugador1 + " fichas.";
-            ultimoGanador = jugadorNombre1;
-        } else if (contadorJugador2 > contadorJugador1) {
-            mensaje = "Ganó " + jugadorNombre2 + " con " + contadorJugador2 + " fichas.";
-            ultimoGanador = jugadorNombre2;
->>>>>>> origin/desarrollo
-        } else {
-            mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
-            ultimoGanador = "Empate";
-        }
-
-        JOptionPane.showMessageDialog(view, mensaje);
-        actualizarTurno();
-        reestablecerVariables();
-        tableroBorrado();
-        int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            juegoEnProgreso = false;
-            iniciarJuego();
-        } else {
-            juegoEnProgreso = false;
-            view.dispose();
+            JOptionPane.showMessageDialog(view, mensaje);
+            actualizarTurno();
+            reestablecerVariables();
+            tableroBorrado();
+            int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                juegoEnProgreso = false;
+                iniciarJuego();
+            } else {
+                juegoEnProgreso = false;
+                view.dispose();
+            }
         }
     }
 
@@ -450,4 +445,5 @@ public class Tablero extends JPanel {
             }
         }
     }
+
 }
