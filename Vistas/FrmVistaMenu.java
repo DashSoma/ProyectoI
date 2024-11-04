@@ -1,7 +1,8 @@
-package ProyectoI.Vistas;
+package Proyecto.Vistas;
 
 
 import ProyectoI.Bots.Bot;
+import ProyectoI.Vistas.FrmJuego;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
