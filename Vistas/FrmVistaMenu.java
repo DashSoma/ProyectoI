@@ -130,6 +130,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
             }
         });
 
+        btnInciar.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         btnInciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/PlayV64.png"))); // NOI18N
         btnInciar.setText("1vrs1");
         btnInciar.setContentAreaFilled(false);
@@ -144,6 +145,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
             }
         });
 
+        btnInciar1.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         btnInciar1.setForeground(new java.awt.Color(255, 255, 255));
         btnInciar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/PlayV64.png"))); // NOI18N
         btnInciar1.setText("1vrsBoot");
@@ -159,6 +161,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
             }
         });
 
+        btnInformacion.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         btnInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/infoVerde32.png"))); // NOI18N
         btnInformacion.setText("Información");
         btnInformacion.setContentAreaFilled(false);
