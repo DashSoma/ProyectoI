@@ -263,7 +263,7 @@ public class FrmJuego extends javax.swing.JDialog {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-    
+        tablero.iniciarJuego();
         
     }//GEN-LAST:event_formWindowOpened
 
