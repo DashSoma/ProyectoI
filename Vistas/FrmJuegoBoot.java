@@ -42,8 +42,15 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         contenedorTablero.setBorder(new EmptyBorder(80, 80, 80, 80));
         contenedorTablero.add(bot, BorderLayout.CENTER);
         add(contenedorTablero, BorderLayout.CENTER);
+        iniciarFicha();
     }
 
+    
+     private void iniciarFicha() {
+        ficha.start(); 
+    }
+   
+    
     public String getLblTurno() {
         return lblTurno;
     }

@@ -8,7 +8,7 @@ package Modelos;
  *
  * @author munoz
  */
-public class FichaBoot {
+public class FichaBoot extends Thread{
     public int negro = 1;
     public int blanco = 2;
     
@@ -31,4 +31,20 @@ public class FichaBoot {
         this.blanco = blanco;
     }
 
+    public void run() {
+        
+        for (int i = 0; i < 5; i++) {
+            synchronized(this) {
+                setNegro(getNegro() + 1);
+                setBlanco(getBlanco() + 1);
+                System.out.println("Hilo " + Thread.currentThread().getName() + " - Negro: " + getNegro() + ", Blanco: " + getBlanco());
+            }
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println("Hilo interrumpido");
+            }
+        }
+    }
 }

@@ -7,7 +7,6 @@ package Bots;
 import Modelos.Ficha;
 import Modelos.Jugador;
 import Vistas.FrmJuegoBoot;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -43,9 +42,34 @@ public class Bot extends JPanel {
     public String ultimoGanador = "";
 
     public Bot(FrmJuegoBoot view) {
-        this.view = view;
+//        this.view = view;
+//        tablero = new int[tamaño][tamaño];
+//        jugadorActual = ficha.getNegro(); 
+//        addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                filaSeleccionada = e.getY() / obtenerTamañoCelda();
+//                columnaSeleccionada = e.getX() / obtenerTamañoCelda();
+//                if (esMovimientoValido(filaSeleccionada, columnaSeleccionada)) {
+//                    hacerMovimiento(filaSeleccionada, columnaSeleccionada);
+//                    cambiarTurno();
+//                    actualizarTurno(""); 
+//                    repaint();
+//                    if (tablaLlena() || ambosJugadoresSinMovimientos()) {
+//                        mostrarGanador(jugador.getJugador1(), jugador.getJugador2());
+//                    } else {
+//                        if (jugadorActual == ficha.getBlanco()) {
+//                            realizarMovimientoBot();
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//    }
+
+this.view = view;
         tablero = new int[tamaño][tamaño];
-        jugadorActual = ficha.getNegro(); 
+        jugadorActual = ficha.getNegro();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -54,14 +78,15 @@ public class Bot extends JPanel {
                 if (esMovimientoValido(filaSeleccionada, columnaSeleccionada)) {
                     hacerMovimiento(filaSeleccionada, columnaSeleccionada);
                     cambiarTurno();
-                    actualizarTurno(""); 
+
+                    // Ejecuta la actualización de turno en un nuevo hilo
+                    new Thread(() -> actualizarTurno("")).start();
+                    
                     repaint();
-                    if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                        mostrarGanador(jugador.getJugador1(), jugador.getJugador2());
-                    } else {
-                        if (jugadorActual == ficha.getBlanco()) {
-                            realizarMovimientoBot();
-                        }
+                    verificarEstadoJuego();
+                    
+                    if (jugadorActual == ficha.getBlanco()) {
+                        realizarMovimientoBot();
                     }
                 }
             }
@@ -90,6 +115,7 @@ public class Bot extends JPanel {
         }
     }
 
+    
     public int obtenerTamañoCelda() {
         return Math.min(getWidth(), getHeight()) / tamaño;
     }
