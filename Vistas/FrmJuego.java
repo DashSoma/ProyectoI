@@ -1,9 +1,9 @@
 package Vistas;
 
-import Modelos.Ficha;
-import Modelos.Jugador;
-import Modelos.Tablero.ControladorTablero;
-import Modelos.Tablero.Tablero;
+import Modelos.Juego1vs1.Ficha;
+import Modelos.Juego1vs1.Jugador;
+import Controladores.Controlador1vs1;
+import Modelos.Tablero.Tablero1vs1;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,8 +19,8 @@ import javax.swing.border.EmptyBorder;
 public class FrmJuego extends javax.swing.JDialog {
 
     Ficha ficha;
-    ControladorTablero controller;
-    Tablero tablero;
+    Controlador1vs1 controller;
+    Tablero1vs1 tablero;
     Jugador jugador;
     Jugador jugador1;
     Jugador jugador2;
@@ -40,8 +40,8 @@ public class FrmJuego extends javax.swing.JDialog {
         // Crear tablero
         ficha = new Ficha();
         jugador = new Jugador();
-        tablero = new Tablero(this, ficha, jugador);
-        controller = new ControladorTablero(tablero, this);
+        tablero = new Tablero1vs1(this, ficha, jugador);
+        controller = new Controlador1vs1(tablero, this);
 
         // Crear panel contenedor con borde vacío
         JPanel contenedorTablero = new JPanel(new BorderLayout());

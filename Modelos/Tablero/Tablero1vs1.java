@@ -1,7 +1,8 @@
 package Modelos.Tablero;
 
-import Modelos.Ficha;
-import Modelos.Jugador;
+import Controladores.Controlador1vs1;
+import Modelos.Juego1vs1.Ficha;
+import Modelos.Juego1vs1.Jugador;
 import Musica.Musica;
 import Vistas.FrmJuego;
 import java.awt.Color;
@@ -16,7 +17,7 @@ import javax.swing.JPanel;
  *
  * @author Chrisp
  */
-public class Tablero extends JPanel {
+public class Tablero1vs1 extends JPanel {
 
    public static final int tamaño = 4;
     private static final int vacio = 0;
@@ -26,21 +27,21 @@ public class Tablero extends JPanel {
     private int[][] tablero;
     public int filaSeleccionada;
     public int columnaSeleccionada;
-    Ficha ficha = new Ficha();
+    public Ficha ficha = new Ficha();
     Jugador jugador = new Jugador();
-    ControladorTablero controller;
+    Controlador1vs1 controller;
     Musica musica;
-    String jugadorNombre1 = jugador.getJugador1();
-    String jugadorNombre2 = jugador.getJugador2();
-    int jugadorActual = jugador.getJugadorActual();
+    public String jugadorNombre1 = jugador.getJugador1();
+    public String jugadorNombre2 = jugador.getJugador2();
+    public int jugadorActual = jugador.getJugadorActual();
     public String ultimoGanador = "";
     FrmJuego view;
 
-    public Tablero(FrmJuego view, Ficha ficha, Jugador jugador) {
+    public Tablero1vs1(FrmJuego view, Ficha ficha, Jugador jugador) {
         this.view = view;
         this.ficha = ficha;
         this.jugador = jugador;
-        this.controller = new ControladorTablero(this, view);
+        this.controller = new Controlador1vs1(this, view);
         musica = new Musica();
         tablero = new int[tamaño][tamaño];
         jugadorActual = ficha.getNegro();

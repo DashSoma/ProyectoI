@@ -4,9 +4,9 @@
  */
 package Vistas;
 
-import Bots.Bot;
-import Modelos.FichaBoot;
-import Modelos.JugadorBoot;
+import Modelos.Tablero.Tablero1vsBot;
+import Modelos.Juego1vsBot.FichaBoot;
+import Modelos.Juego1vsBot.JugadorBoot;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -30,7 +30,7 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     JugadorBoot jugador1;
     int jugadorActual = jugador.getJugadorActual();
     private String lblTurno;
-    private Bot bot;
+    private Tablero1vsBot bot;
 
     public FrmJuegoBoot(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,7 +38,7 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         jugador1 = new JugadorBoot("Jugador 1", 1);
-        bot = new Bot(this);
+        bot = new Tablero1vsBot(this);
         JPanel contenedorTablero = new JPanel(new BorderLayout());
         contenedorTablero.setBorder(new EmptyBorder(80, 80, 80, 80));
         contenedorTablero.add(bot, BorderLayout.CENTER);

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelos.Tablero;
+package Controladores;
 
+import Modelos.Tablero.Tablero1vs1;
 import Vistas.FrmJuego;
 import Vistas.FrmVistaSolicitud;
 import javax.swing.JOptionPane;
@@ -12,13 +13,13 @@ import javax.swing.JOptionPane;
  *
  * @author Crisp
  */
-public class ControladorTablero {
+public class Controlador1vs1 {
 
    
-    Tablero model ;
+    Tablero1vs1 model ;
     FrmJuego vista;
 
-    public ControladorTablero(Tablero model, FrmJuego vista) {
+    public Controlador1vs1(Tablero1vs1 model, FrmJuego vista) {
         this.model = model;
         this.vista = vista;
     }
