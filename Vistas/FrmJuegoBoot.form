@@ -23,72 +23,73 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="BtnIniciar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
               <Component id="pnlTurno" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="BtnSalir" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="lblJugador1" min="-2" pref="125" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Contador3" min="-2" pref="95" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Contador1" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblJugador1" min="-2" pref="95" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="lblNombreJ1" min="-2" pref="99" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Contador2" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblJugador2" min="-2" pref="97" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lblNombreJ2" min="-2" pref="110" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lblNombreJ1" min="-2" pref="99" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblJugador2" min="-2" pref="124" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="Contador1" min="-2" pref="95" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblNombreJ2" min="-2" pref="110" max="-2" attributes="0"/>
+                  <Component id="Contador2" min="-2" pref="95" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Component id="BtnInfo" min="-2" pref="65" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblJugador1" pref="30" max="32767" attributes="0"/>
-                  <Component id="lblNombreJ1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblJugador2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblNombreJ2" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="Contador1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="Contador2" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="Contador3" pref="23" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="386" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="BtnSalir" alignment="1" min="-2" pref="78" max="-2" attributes="0"/>
-                  <Component id="BtnIniciar" alignment="1" min="-2" pref="78" max="-2" attributes="0"/>
-                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                      <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="pnlTurno" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblJugador1" pref="29" max="32767" attributes="0"/>
+                          <Component id="lblNombreJ1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblJugador2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblNombreJ2" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="Contador1" alignment="0" pref="30" max="32767" attributes="0"/>
+                          <Component id="Contador2" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="BtnInfo" min="-2" pref="59" max="-2" attributes="0"/>
+                      <EmptySpace pref="6" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace pref="427" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                      <Component id="BtnSalir" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="BtnIniciar" min="-2" pref="78" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="pnlTurno" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,17 +97,20 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="BtnIniciar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/PlayV24.png"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Showcard Gothic" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Iniciar"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Iconos/reiniciar24.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Reiniciar"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/PlayV24.png"/>
+          <Image iconType="3" name="/Iconos/reiniciar24.png"/>
         </Property>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/PlayV32.png"/>
+          <Image iconType="3" name="/Iconos/reiniciar32.png"/>
         </Property>
         <Property name="verticalAlignment" type="int" value="3"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
@@ -117,17 +121,20 @@
     </Component>
     <Component class="javax.swing.JButton" name="BtnSalir">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/pila24.png"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Showcard Gothic" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Opciones"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Iconos/salir24.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Abandonar"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/pila24.png"/>
+          <Image iconType="3" name="/Iconos/salir24.png"/>
         </Property>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/pila32.png"/>
+          <Image iconType="3" name="/Iconos/salir32.png"/>
         </Property>
         <Property name="verticalAlignment" type="int" value="3"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
@@ -139,50 +146,42 @@
     <Component class="javax.swing.JLabel" name="Contador1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="16" style="0"/>
+          <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="Contador2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Lucida Fax" size="16" style="0"/>
+          <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombreJ1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="16" style="1"/>
+          <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton3"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombreJ2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="16" style="1"/>
+          <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblJugador1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="16" style="0"/>
+          <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblJugador2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="16" style="0"/>
+          <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
@@ -223,7 +222,7 @@
         <Component class="javax.swing.JLabel" name="lblContTurno">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Showcard Gothic" size="16" style="1"/>
+              <Font name="Showcard Gothic" size="16" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -231,12 +230,29 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="Contador3">
+    <Component class="javax.swing.JButton" name="BtnInfo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Showcard Gothic" size="16" style="0"/>
+          <Font name="Showcard Gothic" size="12" style="0"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Iconos/infoVerde24.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Info"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Iconos/infoVerde24.png"/>
+        </Property>
+        <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Iconos/infoVerde32.png"/>
+        </Property>
+        <Property name="verticalAlignment" type="int" value="3"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnInfoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

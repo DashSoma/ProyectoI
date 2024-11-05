@@ -135,10 +135,9 @@ public class FrmJuego extends javax.swing.JDialog {
         lblCirculo = new javax.swing.JLabel();
         lblContador1 = new javax.swing.JLabel();
         lblContador2 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        mnuBarOpc = new javax.swing.JMenu();
-        mnuItemReiniciar = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        BtnInfo = new javax.swing.JButton();
+        BtnReinicia = new javax.swing.JButton();
+        BtnAbandona = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("¡Bienvenido al increíble juego Othello!");
@@ -152,18 +151,18 @@ public class FrmJuego extends javax.swing.JDialog {
             }
         });
 
-        lblNombreJ1.setFont(new java.awt.Font("Showcard Gothic", 1, 16)); // NOI18N
+        lblNombreJ1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
-        lblNombreJ2.setFont(new java.awt.Font("Showcard Gothic", 1, 16)); // NOI18N
+        lblNombreJ2.setFont(new java.awt.Font("Showcard Gothic", 1, 14)); // NOI18N
 
-        lblJugador1.setFont(new java.awt.Font("Showcard Gothic", 0, 16)); // NOI18N
+        lblJugador1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
-        lblJugador2.setFont(new java.awt.Font("Showcard Gothic", 0, 16)); // NOI18N
+        lblJugador2.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
         pnlTurno.setBackground(new java.awt.Color(9, 161, 24));
         pnlTurno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lblContTurno.setFont(new java.awt.Font("Showcard Gothic", 1, 16)); // NOI18N
+        lblContTurno.setFont(new java.awt.Font("Showcard Gothic", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout pnlTurnoLayout = new javax.swing.GroupLayout(pnlTurno);
         pnlTurno.setLayout(pnlTurnoLayout);
@@ -183,107 +182,154 @@ public class FrmJuego extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        lblContador1.setFont(new java.awt.Font("Showcard Gothic", 0, 16)); // NOI18N
+        lblContador1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
-        lblContador2.setFont(new java.awt.Font("Lucida Fax", 0, 16)); // NOI18N
+        lblContador2.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
-        mnuBarOpc.setText("Opciones");
-
-        mnuItemReiniciar.setFont(new java.awt.Font("Lucida Fax", 0, 18)); // NOI18N
-        mnuItemReiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar32.png"))); // NOI18N
-        mnuItemReiniciar.setText(" Reiniciar");
-        mnuItemReiniciar.addActionListener(new java.awt.event.ActionListener() {
+        BtnInfo.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        BtnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/infoVerde24.png"))); // NOI18N
+        BtnInfo.setText("Info");
+        BtnInfo.setContentAreaFilled(false);
+        BtnInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnInfo.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/infoVerde24.png"))); // NOI18N
+        BtnInfo.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/infoVerde32.png"))); // NOI18N
+        BtnInfo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuItemReiniciarActionPerformed(evt);
+                BtnInfoActionPerformed(evt);
             }
         });
-        mnuBarOpc.add(mnuItemReiniciar);
 
-        jMenuItem1.setFont(new java.awt.Font("Lucida Fax", 0, 18)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir32.png"))); // NOI18N
-        jMenuItem1.setText(" Rendirse");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        BtnReinicia.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        BtnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar24.png"))); // NOI18N
+        BtnReinicia.setText("Reiniciar");
+        BtnReinicia.setContentAreaFilled(false);
+        BtnReinicia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnReinicia.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar24.png"))); // NOI18N
+        BtnReinicia.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar32.png"))); // NOI18N
+        BtnReinicia.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnReinicia.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnReinicia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                BtnReiniciaActionPerformed(evt);
             }
         });
-        mnuBarOpc.add(jMenuItem1);
 
-        jMenuBar1.add(mnuBarOpc);
-
-        setJMenuBar(jMenuBar1);
+        BtnAbandona.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        BtnAbandona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir24.png"))); // NOI18N
+        BtnAbandona.setText("Abandonar");
+        BtnAbandona.setContentAreaFilled(false);
+        BtnAbandona.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnAbandona.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir24.png"))); // NOI18N
+        BtnAbandona.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir32.png"))); // NOI18N
+        BtnAbandona.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnAbandona.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnAbandona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAbandonaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(lblJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(lblJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(pnlTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(BtnReinicia)
+                        .addGap(78, 78, 78)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(249, 249, 249)
+                                .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pnlTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(lblContador1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(126, 126, 126)
-                        .addComponent(lblContador2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(61, 61, 61)
+                        .addComponent(lblJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblContador1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                            .addComponent(lblNombreJ1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(498, Short.MAX_VALUE)
+                    .addComponent(BtnAbandona)
+                    .addGap(7, 7, 7)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNombreJ1, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                    .addComponent(lblNombreJ2, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                    .addComponent(lblJugador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblJugador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblContador1, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                    .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(469, 469, 469)
-                .addComponent(pnlTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNombreJ1, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                            .addComponent(lblNombreJ2, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                            .addComponent(lblJugador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblJugador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblContador1, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                            .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 449, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(pnlTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BtnReinicia, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(516, Short.MAX_VALUE)
+                    .addComponent(BtnAbandona, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(4, 4, 4)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnuItemReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemReiniciarActionPerformed
-        controller.reiniciarJuego();
-    }//GEN-LAST:event_mnuItemReiniciarActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        if (controller.rendirse()) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
         controller.iniciarJuego();
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         int result = mostrarMensajeConfirmacion("¿Deseas cerrar el juego?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
         if (result == JOptionPane.YES_OPTION) {
             dispose();
         }
-
     }//GEN-LAST:event_formWindowClosing
+
+    private void BtnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInfoActionPerformed
+        FrmAcercaDe frm = new FrmAcercaDe(null, true);
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
+    }//GEN-LAST:event_BtnInfoActionPerformed
+
+    private void BtnReiniciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReiniciaActionPerformed
+        controller.reiniciarJuego();
+    }//GEN-LAST:event_BtnReiniciaActionPerformed
+
+    private void BtnAbandonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbandonaActionPerformed
+        if (controller.rendirse()) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_BtnAbandonaActionPerformed
 
     public void mostrarMansaje(String texto, String titulo, int tipoMensaje) {
         JOptionPane.showMessageDialog(this, texto, titulo, tipoMensaje);
@@ -298,8 +344,9 @@ public class FrmJuego extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JButton BtnAbandona;
+    private javax.swing.JButton BtnInfo;
+    private javax.swing.JButton BtnReinicia;
     private javax.swing.JLabel lblCirculo;
     private javax.swing.JLabel lblContTurno;
     private javax.swing.JLabel lblContador1;
@@ -308,8 +355,6 @@ public class FrmJuego extends javax.swing.JDialog {
     private javax.swing.JLabel lblJugador2;
     private javax.swing.JLabel lblNombreJ1;
     private javax.swing.JLabel lblNombreJ2;
-    private javax.swing.JMenu mnuBarOpc;
-    private javax.swing.JMenuItem mnuItemReiniciar;
     private javax.swing.JPanel pnlTurno;
     // End of variables declaration//GEN-END:variables
 

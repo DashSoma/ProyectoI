@@ -1,6 +1,5 @@
 package Vistas;
 
-
 import Musica.Metodos.Musica;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
@@ -13,7 +12,9 @@ import javax.swing.JFrame;
  * @author munoz
  */
 public class FrmVistaMenu extends javax.swing.JFrame {
+
     Musica musica;
+
     /**
      * Creates new form VistaMenu
      */
@@ -27,7 +28,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
                 ajustarPosiciones();
             }
         });
-        
+
         musica = new Musica();
     }
 
@@ -36,20 +37,18 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         int frameHeight = getHeight();
 
         int x1 = (int) (frameWidth * 0.35);
-        int y1 = (int) (frameHeight * 0.73);
+        int y1 = (int) (frameHeight * 0.70);
 
         int x2 = (int) (frameWidth * 0.55);
-        int y2 = (int) (frameHeight * 0.73);
+        int y2 = (int) (frameHeight * 0.70);
 
-        int xInfo = (int) (frameWidth * 0.88);
-        int yInfo = (int) (frameHeight * 0.07);
+        int xInfo = (int) (frameWidth * 0.87);
+        int yInfo = (int) (frameHeight * 0.08);
 
         btnInformacion.setLocation(xInfo, yInfo);
         btnInciar1vsBot.setLocation(x1, y1);
         btnInciar1vsv1.setLocation(x2, y2);
     }
-
-   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,7 +71,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
             }
         });
 
-        btnInciar1vsv1.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        btnInciar1vsv1.setFont(new java.awt.Font("Showcard Gothic", 0, 22)); // NOI18N
         btnInciar1vsv1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/PlayV64.png"))); // NOI18N
         btnInciar1vsv1.setText("1vrs1");
         btnInciar1vsv1.setContentAreaFilled(false);
@@ -87,10 +86,10 @@ public class FrmVistaMenu extends javax.swing.JFrame {
             }
         });
 
-        btnInciar1vsBot.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        btnInciar1vsBot.setFont(new java.awt.Font("Showcard Gothic", 0, 22)); // NOI18N
         btnInciar1vsBot.setForeground(new java.awt.Color(255, 255, 255));
         btnInciar1vsBot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/PlayV64.png"))); // NOI18N
-        btnInciar1vsBot.setText("1vrsBoot");
+        btnInciar1vsBot.setText("1vrsBot");
         btnInciar1vsBot.setContentAreaFilled(false);
         btnInciar1vsBot.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnInciar1vsBot.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/PlayV64.png"))); // NOI18N
@@ -103,7 +102,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
             }
         });
 
-        btnInformacion.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        btnInformacion.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
         btnInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/infoVerde32.png"))); // NOI18N
         btnInformacion.setText("Información");
         btnInformacion.setContentAreaFilled(false);
@@ -127,7 +126,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         DeskLayout.setHorizontalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DeskLayout.createSequentialGroup()
-                .addContainerGap(178, Short.MAX_VALUE)
+                .addContainerGap(189, Short.MAX_VALUE)
                 .addGroup(DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeskLayout.createSequentialGroup()
                         .addComponent(btnInciar1vsBot, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,15 +140,11 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         DeskLayout.setVerticalGroup(
             DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeskLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(DeskLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnInciar1vsv1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(DeskLayout.createSequentialGroup()
-                        .addComponent(btnInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                        .addComponent(btnInciar1vsBot, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(btnInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addGroup(DeskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnInciar1vsBot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInciar1vsv1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                 .addGap(36, 36, 36))
         );
 
@@ -167,18 +162,15 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void btnInciar1vsv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1vsv1ActionPerformed
         FrmJuego view = new FrmJuego(this, true);
         musica.musicaInicio(false);
         view.setVisible(true);
-        
     }//GEN-LAST:event_btnInciar1vsv1ActionPerformed
     private void btnInciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciarActionPerformed
-        FrmJuego view = new FrmJuego(this,true);
+        FrmJuego view = new FrmJuego(this, true);
         view.setVisible(true);
         musica.musicaInicio(false);
-        //llamarTablero(2);
     }//GEN-LAST:event_btnInciarActionPerformed
 
     private void btnInciar1vsBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1vsBotActionPerformed
@@ -186,14 +178,15 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         musica.musicaInicio(false);
         view.setVisible(true);
     }//GEN-LAST:event_btnInciar1vsBotActionPerformed
-                                    
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         musica.musicaInicio(true);
     }//GEN-LAST:event_formWindowActivated
 
     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
-
+        FrmAcercaDe frm = new FrmAcercaDe(null, true);
+        frm.setLocationRelativeTo(null);
+        frm.setVisible(true);
     }//GEN-LAST:event_btnInformacionActionPerformed
 
     /**

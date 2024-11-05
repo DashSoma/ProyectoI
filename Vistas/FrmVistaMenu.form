@@ -46,7 +46,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="178" max="32767" attributes="0"/>
+                  <EmptySpace pref="189" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnInciar1vsBot" min="-2" pref="133" max="-2" attributes="0"/>
@@ -65,17 +65,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnInciar1vsv1" min="-2" pref="155" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="btnInformacion" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace pref="83" max="32767" attributes="0"/>
-                          <Component id="btnInciar1vsBot" min="-2" pref="155" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="btnInformacion" min="-2" pref="96" max="-2" attributes="0"/>
+                  <EmptySpace pref="98" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btnInciar1vsBot" max="32767" attributes="0"/>
+                      <Component id="btnInciar1vsv1" pref="176" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
@@ -86,7 +80,7 @@
         <Component class="javax.swing.JButton" name="btnInciar1vsv1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Showcard Gothic" size="12" style="0"/>
+              <Font name="Showcard Gothic" size="22" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/PlayV64.png"/>
@@ -110,7 +104,7 @@
         <Component class="javax.swing.JButton" name="btnInciar1vsBot">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Showcard Gothic" size="12" style="0"/>
+              <Font name="Showcard Gothic" size="22" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -118,7 +112,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/PlayV64.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="1vrsBoot"/>
+            <Property name="text" type="java.lang.String" value="1vrsBot"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -137,7 +131,7 @@
         <Component class="javax.swing.JButton" name="btnInformacion">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Showcard Gothic" size="12" style="0"/>
+              <Font name="Showcard Gothic" size="14" style="0"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Iconos/infoVerde32.png"/>

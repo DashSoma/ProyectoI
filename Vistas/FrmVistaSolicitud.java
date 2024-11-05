@@ -4,9 +4,6 @@
  */
 package Vistas;
 
-import Vistas.FrmJuego;
-import javax.swing.JOptionPane;
-
 
 /**
  *
