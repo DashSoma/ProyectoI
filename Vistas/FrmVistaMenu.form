@@ -49,9 +49,9 @@
                   <EmptySpace pref="178" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnInciar1" min="-2" pref="133" max="-2" attributes="0"/>
+                          <Component id="btnInciar1vsBot" min="-2" pref="133" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnInciar" min="-2" pref="133" max="-2" attributes="0"/>
+                          <Component id="btnInciar1vsv1" min="-2" pref="133" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -69,12 +69,12 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnInciar" min="-2" pref="155" max="-2" attributes="0"/>
+                          <Component id="btnInciar1vsv1" min="-2" pref="155" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="btnInformacion" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace pref="83" max="32767" attributes="0"/>
-                          <Component id="btnInciar1" min="-2" pref="155" max="-2" attributes="0"/>
+                          <Component id="btnInciar1vsBot" min="-2" pref="155" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -83,7 +83,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnInciar">
+        <Component class="javax.swing.JButton" name="btnInciar1vsv1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Showcard Gothic" size="12" style="0"/>
@@ -104,10 +104,10 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInciarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInciar1vsv1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnInciar1">
+        <Component class="javax.swing.JButton" name="btnInciar1vsBot">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Showcard Gothic" size="12" style="0"/>
@@ -131,7 +131,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInciar1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInciar1vsBotActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnInformacion">

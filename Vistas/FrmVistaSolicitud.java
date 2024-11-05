@@ -160,7 +160,6 @@ public class FrmVistaSolicitud extends javax.swing.JDialog {
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnICancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnICancelarActionPerformed
-        JOptionPane.showMessageDialog(null, "Juego cancelado");
         dispose();
         view.dispose();
     }//GEN-LAST:event_btnICancelarActionPerformed

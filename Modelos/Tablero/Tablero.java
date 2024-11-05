@@ -2,18 +2,14 @@ package Modelos.Tablero;
 
 import Modelos.Ficha;
 import Modelos.Jugador;
+import Musica.Metodos.Musica;
 import Vistas.FrmJuego;
-import Vistas.FrmVistaSolicitud;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -24,14 +20,16 @@ public class Tablero extends JPanel {
 
     public static final int tamaño = 4;
     private static final int vacio = 0;
-    private int contadorJugador1 = 0; // Para el jugador negro
-    private int contadorJugador2 = 0; // Para el jugador blanco
+    public int contadorJugador1 = 0; // Para el jugador negro
+    public int contadorJugador2 = 0; // Para el jugador blanco
     public boolean juegoEnProgreso = false;
     private int[][] tablero;
     public int filaSeleccionada;
     public int columnaSeleccionada;
     Ficha ficha = new Ficha();
     Jugador jugador = new Jugador();
+    ControladorTablero controller;
+    Musica musica;
     String jugadorNombre1 = jugador.getJugador1();
     String jugadorNombre2 = jugador.getJugador2();
     int jugadorActual = jugador.getJugadorActual();
@@ -39,10 +37,13 @@ public class Tablero extends JPanel {
     FrmJuego view;
 
     public String ultimoGanador = "";
-    Clip clip;
 
-    public Tablero(FrmJuego view) {
+    public Tablero(FrmJuego view, Ficha ficha, Jugador jugador) {
         this.view = view;
+        this.ficha = ficha;
+        this.jugador = jugador;
+        this.controller = new ControladorTablero(this, view);
+        musica = new Musica();
         tablero = new int[tamaño][tamaño];
         jugadorActual = ficha.getNegro();
         addMouseListener(new MouseAdapter() {
@@ -53,12 +54,12 @@ public class Tablero extends JPanel {
                 if (esMovimientoValido(filaSeleccionada, columnaSeleccionada)) {
                     hacerMovimiento(filaSeleccionada, columnaSeleccionada);
                     jugadorActual = (jugadorActual == ficha.getNegro()) ? ficha.getBlanco() : ficha.getNegro();
+                    musica.musicaJuego(true);
                     actualizarTurno();
-                    MusicaJuego(true);
                     repaint();
 
                     if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                        mostrarGanador();
+                        controller.mostrarGanador();
                     }
                 }
             }
@@ -92,40 +93,44 @@ public class Tablero extends JPanel {
         return Math.min(getWidth(), getHeight()) / tamaño;
     }
 
-    private void mostrarGanador() {
-
-        String mensaje;
-        if (contadorJugador1 > contadorJugador2) {
-            mensaje = "Ganó " + jugadorNombre1 + " con " + contadorJugador1 + " fichas.";
-            ultimoGanador = jugadorNombre1;
-        } else if (contadorJugador2 > contadorJugador1) {
-            mensaje = "Ganó " + jugadorNombre2 + " con " + contadorJugador2 + " fichas.";
-            ultimoGanador = jugadorNombre2;
-        } else {
-            mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
-            ultimoGanador = "Empate";
-        }
-
-        JOptionPane.showMessageDialog(view, mensaje);
-
-        // Reiniciar variables y preguntar si quieren jugar de nuevo
-        reestablecerVariables();
-        tableroBorrado();
-        int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            juegoEnProgreso = false;
-            iniciarJuego();
-        } else {
-            juegoEnProgreso = false;
-            view.dispose();
-        }
+    public void mostrarTabla() {
+        // Iniciar juego
+        jugadorActual = ficha.getNegro();
+        tablero = new int[tamaño][tamaño];
+        // Colocar fichas iniciales
+        tablero[1][1] = ficha.getBlanco();
+        tablero[1][2] = ficha.getNegro();
+        tablero[2][1] = ficha.getNegro();
+        tablero[2][2] = ficha.getBlanco();
+        repaint();
     }
 
-    public boolean esMovimientoValido(int filaSeleccionada, int columnaSeleccionada) {
-        if (tablero[filaSeleccionada][columnaSeleccionada] != vacio) {
-            return false;
+    public boolean tablaLlena() {
+        // Verificar si la matriz está llena
+        for (filaSeleccionada = 0; filaSeleccionada < tamaño; filaSeleccionada++) {
+            for (columnaSeleccionada = 0; columnaSeleccionada < tamaño; columnaSeleccionada++) {
+                if (tablero[filaSeleccionada][columnaSeleccionada] == vacio) {
+                    return false; // La matriz no está llena
+                }
+            }
         }
-        return puedeInvertir(filaSeleccionada, columnaSeleccionada, true);
+        return true;
+    }
+
+    public void tableroBorrado() {
+        jugadorActual = ficha.getNegro();
+        tablero = new int[tamaño][tamaño];
+        repaint();
+    }
+
+    private void invertir(int fila, int columnaSeleccionada, int dFila, int dColumna) {
+        int r = fila + dFila;
+        int c = columnaSeleccionada + dColumna;
+        while (tablero[r][c] != jugadorActual) {
+            tablero[r][c] = jugadorActual;
+            r += dFila;
+            c += dColumna;
+        }
     }
 
     private boolean puedeInvertir(int filaSeleccionada, int columnaSeleccionada, boolean movimientoActual) {
@@ -163,14 +168,11 @@ public class Tablero extends JPanel {
         return puedeInvertir;
     }
 
-    private void invertir(int fila, int columnaSeleccionada, int dFila, int dColumna) {
-        int r = fila + dFila;
-        int c = columnaSeleccionada + dColumna;
-        while (tablero[r][c] != jugadorActual) {
-            tablero[r][c] = jugadorActual;
-            r += dFila;
-            c += dColumna;
+    public boolean esMovimientoValido(int filaSeleccionada, int columnaSeleccionada) {
+        if (tablero[filaSeleccionada][columnaSeleccionada] != vacio) {
+            return false;
         }
+        return puedeInvertir(filaSeleccionada, columnaSeleccionada, true);
     }
 
     public boolean hacerMovimiento(int filaSeleccionada, int columnaSeleccionada) {
@@ -200,30 +202,6 @@ public class Tablero extends JPanel {
         view.getLblContador2().setText(String.valueOf(contadorJugador2));
     }
 
-    public void mostrarTabla() {
-        // Iniciar juego
-        jugadorActual = ficha.getNegro();
-        tablero = new int[tamaño][tamaño];
-        // Colocar fichas iniciales
-        tablero[1][1] = ficha.getBlanco();
-        tablero[1][2] = ficha.getNegro();
-        tablero[2][1] = ficha.getNegro();
-        tablero[2][2] = ficha.getBlanco();
-        repaint();
-    }
-
-    public boolean tablaLlena() {
-        // Verificar si la matriz está llena
-        for (filaSeleccionada = 0; filaSeleccionada < tamaño; filaSeleccionada++) {
-            for (columnaSeleccionada = 0; columnaSeleccionada < tamaño; columnaSeleccionada++) {
-                if (tablero[filaSeleccionada][columnaSeleccionada] == vacio) {
-                    return false; // La matriz no está llena
-                }
-            }
-        }
-        return true;
-    }
-
     private boolean ambosJugadoresSinMovimientos() {
         return !movimientosDisponibles(ficha.getNegro()) && !movimientosDisponibles(ficha.getBlanco());
     }
@@ -237,12 +215,6 @@ public class Tablero extends JPanel {
             }
         }
         return false;
-    }
-
-    public void tableroBorrado() {
-        jugadorActual = ficha.getNegro();
-        tablero = new int[tamaño][tamaño];
-        repaint();
     }
 
     public void actualizarTurno() {
@@ -268,182 +240,4 @@ public class Tablero extends JPanel {
         contadorJugador2 = 0;
         repaint();
     }
-
-    public void iniciarJuego() {
-        if (juegoEnProgreso) {
-            JOptionPane.showMessageDialog(view, "Partida en juego. Si deseas iniciar otra, haz clic en reiniciar.", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        boolean nombresValidos = false;
-        while (!nombresValidos) {
-            FrmVistaSolicitud v = new FrmVistaSolicitud(null, true, view);
-            v.setVisible(true);
-
-            // Verifica si el usuario ha cancelado
-            jugadorNombre1 = v.getJugador1();
-            jugadorNombre2 = v.getJugador2();
-
-            if (jugadorNombre1 == null || jugadorNombre2 == null) {
-                // Si se canceló, se sale del método
-                JOptionPane.showMessageDialog(view, "Juego cancelado.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                return; // Salir del método, no continuar pidiendo nombres
-            }
-
-            // Validación de nombres
-            if (jugadorNombre1.trim().isEmpty() || jugadorNombre2.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Por favor, ingresa los nombres de ambos jugadores.", "Error", JOptionPane.ERROR_MESSAGE);
-                reestablecerVariables();
-            } else if (jugadorNombre1.length() > 10) {
-                JOptionPane.showMessageDialog(view, "El nombre del Jugador 1 no puede tener más de 10 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-                reestablecerVariables();
-            } else if (jugadorNombre2.length() > 10) {
-                JOptionPane.showMessageDialog(view, "El nombre del Jugador 2 no puede tener más de 10 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-                reestablecerVariables();
-            } else {
-                // Si los nombres son válidos, salimos del bucle
-                nombresValidos = true;
-            }
-        }
-
-        // Determina quién inicia el juego
-        int jugadorInicial = (int) (Math.random() * 2);
-        if (jugadorInicial == 0) {
-            JOptionPane.showMessageDialog(view, "Inicia el Jugador: " + jugadorNombre1
-                    + "\nEl segundo jugador es: " + jugadorNombre2, "¡Inician las fichas negras!", JOptionPane.INFORMATION_MESSAGE);
-            view.setLblNombreJ1(jugadorNombre1);
-            view.setLblNombreJ2(jugadorNombre2);
-            jugadorActual = ficha.getNegro();
-        } else {
-            JOptionPane.showMessageDialog(view, "Inicia el Jugador: " + jugadorNombre2
-                    + "\nEl segundo jugador es: " + jugadorNombre1, "¡Inician las fichas negras!", JOptionPane.INFORMATION_MESSAGE);
-            view.setLblNombreJ1(jugadorNombre2);
-            view.setLblNombreJ2(jugadorNombre1);
-            jugadorActual = ficha.getBlanco();
-        }
-
-        mostrarTabla();
-        actualizarTurno();
-        juegoEnProgreso = true;
-    }
-
-    public void reiniciarJuego() {
-
-        if (!juegoEnProgreso) {
-            JOptionPane.showMessageDialog(this, "¡No hay ninguna partida en progreso para reiniciar!", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "Reiniciar juego", JOptionPane.YES_NO_OPTION);
-
-        if (result == JOptionPane.YES_OPTION) {
-            // Reiniciar el estado del juego
-            juegoEnProgreso = false;
-            repaint();
-            reestablecerVariables();
-            iniciarJuego();
-        }
-    }
-
-    public boolean rendirse() {
-        if (!juegoEnProgreso) {
-            JOptionPane.showMessageDialog(null, "¡Esta opción solo está habilitada cuando una partida está en juego!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        }
-
-        // Obtén los nombres de los jugadores
-        String nombreJugadorActual = (jugadorActual == ficha.getNegro()) ? view.getLblNombreJ1().getText() : view.getLblNombreJ2().getText();
-
-        // Pregunta de confirmación personalizada con el nombre del jugador
-        int respuesta = JOptionPane.showConfirmDialog(null, nombreJugadorActual + ", ¿deseas rendirte?", "Confirmar", JOptionPane.YES_NO_OPTION);
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-            String ganador, perdedor;
-            jugadorNombre1 = view.getLblNombreJ1().getText();
-            jugadorNombre2 = view.getLblNombreJ2().getText();
-
-            if (jugadorActual == ficha.getNegro()) {
-                perdedor = "      " + jugadorNombre1 + ". te has rendido\n";
-                ultimoGanador = jugadorNombre2;
-                ganador = "\n\n" + jugadorNombre2 + " ¡HAS GANADO! ";
-            } else {
-                perdedor = "      " + jugadorNombre2 + ". te has rendido\n";
-                ultimoGanador = jugadorNombre1;
-                ganador = "\n\n  " + jugadorNombre1 + " ¡HAS GANADO ";
-            }
-
-            JOptionPane.showMessageDialog(null, perdedor + ganador, "Juego Abandonado", JOptionPane.WARNING_MESSAGE);
-
-            // Reinicia el estado del juego
-            juegoEnProgreso = false;
-            reestablecerVariables();
-            tableroBorrado();
-            return true;
-        }
-        return false;
-    }
-
-    public void mostrarUltimoGanador() {
-        String mensaje;
-        if (!juegoEnProgreso && ultimoGanador.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "¡El juego sigue sin un ganador definido!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        } else if (!juegoEnProgreso) {
-            if ("Empate".equals(ultimoGanador)) {
-                mensaje = "El último resultado fue un empate.";
-            } else {
-                mensaje = "El último ganador es: " + ultimoGanador;
-            }
-            JOptionPane.showMessageDialog(this, mensaje, "Último Ganador", JOptionPane.INFORMATION_MESSAGE);
-            if (contadorJugador1 > contadorJugador2) {
-                mensaje = "Ganó " + jugadorNombre1 + " con " + contadorJugador1 + " fichas.";
-                ultimoGanador = jugadorNombre1;
-            } else if (contadorJugador2 > contadorJugador1) {
-                mensaje = "Ganó " + jugadorNombre2 + " con " + contadorJugador2 + " fichas.";
-                ultimoGanador = jugadorNombre2;
-            } else {
-                mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
-                ultimoGanador = "Empate";
-            }
-
-            JOptionPane.showMessageDialog(view, mensaje);
-            actualizarTurno();
-            reestablecerVariables();
-            tableroBorrado();
-            int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
-                juegoEnProgreso = false;
-                iniciarJuego();
-            } else {
-                juegoEnProgreso = false;
-                view.dispose();
-            }
-        }
-    }
-
-    public void MusicaJuego(boolean estado) {
-        if (estado) {
-            try {
-                if (clip != null && clip.isRunning()) {
-                    clip.stop();
-                    clip.close();
-                    clip = null;
-                } else {
-                    java.net.URL resource = getClass().getResource("/musica/ComerFicha.wav");
-                    if (resource == null) {
-                        System.err.println("No se encontró el archivo de audio en la ruta especificada.");
-                        return;
-                    }
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resource);
-                    clip = AudioSystem.getClip();
-                    clip.open(audioInputStream);
-                    clip.start();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            if (clip != null && clip.isRunning()) {
-                clip.stop();
-            }
-        }
-    }
-
 }

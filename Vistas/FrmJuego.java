@@ -1,11 +1,13 @@
 package Vistas;
 
-import Bots.Bot;
 import Modelos.Ficha;
 import Modelos.Jugador;
+import Modelos.Tablero.ControladorTablero;
 import Modelos.Tablero.Tablero;
 import java.awt.BorderLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,17 +18,14 @@ import javax.swing.border.EmptyBorder;
  */
 public class FrmJuego extends javax.swing.JDialog {
 
-    FrmJuego view;
-    Ficha ficha = new Ficha();
-    private Tablero tablero;
-    private Bot bot;
-    Jugador jugador = new Jugador();
+    Ficha ficha;
+    ControladorTablero controller;
+    Tablero tablero;
+    Jugador jugador;
     Jugador jugador1;
     Jugador jugador2;
-    int jugadorActual = jugador.getJugadorActual();
     private String lblTurno;
 
-    
     public FrmJuego(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
@@ -34,15 +33,21 @@ public class FrmJuego extends javax.swing.JDialog {
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
 
+        // Crear Jugadores 
         jugador1 = new Jugador("Jugador 1", 1);
         jugador2 = new Jugador("Jugador 2", 2);
-        tablero = new Tablero(this);
 
+        // Crear tablero
+        ficha = new Ficha();
+        jugador = new Jugador();
+        tablero = new Tablero(this, ficha, jugador);
+        controller = new ControladorTablero(tablero, this);
+
+        // Crear panel contenedor con borde vacío
         JPanel contenedorTablero = new JPanel(new BorderLayout());
         contenedorTablero.setBorder(new EmptyBorder(80, 80, 80, 80));
         contenedorTablero.add(tablero, BorderLayout.CENTER);
         add(contenedorTablero, BorderLayout.CENTER);
-
     }
 
     public String getLblTurno() {
@@ -139,6 +144,9 @@ public class FrmJuego extends javax.swing.JDialog {
         setTitle("¡Bienvenido al increíble juego Othello!");
         setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -253,20 +261,37 @@ public class FrmJuego extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuItemReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemReiniciarActionPerformed
-        tablero.reiniciarJuego();
+        controller.reiniciarJuego();
     }//GEN-LAST:event_mnuItemReiniciarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         if (tablero.rendirse()) {
+        if (controller.rendirse()) {
             this.dispose();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-    
-        
+        controller.iniciarJuego();
+
     }//GEN-LAST:event_formWindowOpened
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        int result = mostrarMensajeConfirmacion("¿Deseas cerrar el juego?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.YES_OPTION) {
+            dispose();
+        }
+
+    }//GEN-LAST:event_formWindowClosing
+
+    public void mostrarMansaje(String texto, String titulo, int tipoMensaje) {
+        JOptionPane.showMessageDialog(this, texto, titulo, tipoMensaje);
+    }
+
+    public int mostrarMensajeConfirmacion(String texto, String titulo, int tipoRespuesta, int tipoMensaje) {
+        return JOptionPane.showConfirmDialog(this, texto, titulo, tipoRespuesta, tipoMensaje);
+    }
     /**
      *
      * @param args args del main
