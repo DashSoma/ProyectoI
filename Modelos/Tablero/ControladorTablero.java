@@ -124,7 +124,7 @@ public class ControladorTablero {
         return false;
     }
 
-    public void mostrarGanador() {
+  public void mostrarGanador() {
 
         String mensaje;
         if (model.contadorJugador1 > model.contadorJugador2) {

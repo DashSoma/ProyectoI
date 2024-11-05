@@ -45,8 +45,8 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         int yInfo = (int) (frameHeight * 0.07);
 
         btnInformacion.setLocation(xInfo, yInfo);
-        btnInciar1.setLocation(x1, y1);
-        btnInciar.setLocation(x2, y2);
+        btnInciar1vsBot.setLocation(x1, y1);
+        btnInciar1vsv1.setLocation(x2, y2);
     }
 
    
@@ -184,10 +184,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
     private void btnInciar1vsBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1vsBotActionPerformed
 
     }//GEN-LAST:event_btnInciar1vsBotActionPerformed
-
-   
-
-    }                                          
+                                    
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         musica.musicaInicio(true);
