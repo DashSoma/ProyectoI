@@ -18,10 +18,10 @@ import javax.swing.JPanel;
  */
 public class Tablero extends JPanel {
 
-    public static final int tamaño = 4;
+   public static final int tamaño = 4;
     private static final int vacio = 0;
-    public int contadorJugador1 = 0; // Para el jugador negro
-    public int contadorJugador2 = 0; // Para el jugador blanco
+    public int contadorJugador1 = 0; 
+    public int contadorJugador2 = 0; 
     public boolean juegoEnProgreso = false;
     private int[][] tablero;
     public int filaSeleccionada;
@@ -33,10 +33,8 @@ public class Tablero extends JPanel {
     String jugadorNombre1 = jugador.getJugador1();
     String jugadorNombre2 = jugador.getJugador2();
     int jugadorActual = jugador.getJugadorActual();
-
-    FrmJuego view;
-
     public String ultimoGanador = "";
+    FrmJuego view;
 
     public Tablero(FrmJuego view, Ficha ficha, Jugador jugador) {
         this.view = view;
@@ -94,10 +92,8 @@ public class Tablero extends JPanel {
     }
 
     public void mostrarTabla() {
-        // Iniciar juego
         jugadorActual = ficha.getNegro();
         tablero = new int[tamaño][tamaño];
-        // Colocar fichas iniciales
         tablero[1][1] = ficha.getBlanco();
         tablero[1][2] = ficha.getNegro();
         tablero[2][1] = ficha.getNegro();
@@ -105,16 +101,20 @@ public class Tablero extends JPanel {
         repaint();
     }
 
-    public boolean tablaLlena() {
-        // Verificar si la matriz está llena
-        for (filaSeleccionada = 0; filaSeleccionada < tamaño; filaSeleccionada++) {
-            for (columnaSeleccionada = 0; columnaSeleccionada < tamaño; columnaSeleccionada++) {
-                if (tablero[filaSeleccionada][columnaSeleccionada] == vacio) {
-                    return false; // La matriz no está llena
-                }
-            }
+    public boolean TablaLlena(int fila, int columna) {// Directa y simple 
+        if (fila == tamaño) {
+            return true;
         }
-        return true;
+        if (tablero[fila][columna] == vacio) {
+            return false;
+        }
+        int nuevaFila = columna == tamaño - 1 ? fila + 1 : fila;
+        int nuevaColumna = (columna + 1) % tamaño;
+        return TablaLlena(nuevaFila, nuevaColumna);
+    }
+
+    public boolean tablaLlena() {
+        return TablaLlena(0, 0);
     }
 
     public void tableroBorrado() {
@@ -123,21 +123,24 @@ public class Tablero extends JPanel {
         repaint();
     }
 
-    private void invertir(int fila, int columnaSeleccionada, int dFila, int dColumna) {
+    private void invertir(int fila, int columnaSeleccionada, int dFila, int dColumna) {//Drirecta 
         int r = fila + dFila;
         int c = columnaSeleccionada + dColumna;
-        while (tablero[r][c] != jugadorActual) {
-            tablero[r][c] = jugadorActual;
-            r += dFila;
-            c += dColumna;
+
+        if (r < 0 || r >= tamaño || c < 0 || c >= tamaño || tablero[r][c] == jugadorActual) {
+            return;
         }
+
+        tablero[r][c] = jugadorActual;
+
+        invertir(r, c, dFila, dColumna);
     }
 
     private boolean puedeInvertir(int filaSeleccionada, int columnaSeleccionada, boolean movimientoActual) {
         boolean puedeInvertir = false;
-        //Vector con posibles direcciones 
+
         int[] direcciones = {-1, 0, 1};
-        //Bucle que revisa el vector direcciones para determinar posibles movimientos 
+
         for (int dFila : direcciones) {
             for (int dColumna : direcciones) {
                 if (dFila == 0 && dColumna == 0) {
@@ -178,43 +181,56 @@ public class Tablero extends JPanel {
     public boolean hacerMovimiento(int filaSeleccionada, int columnaSeleccionada) {
         tablero[filaSeleccionada][columnaSeleccionada] = jugadorActual;
         puedeInvertir(filaSeleccionada, columnaSeleccionada, false);
-        // Recalcula los contadores después de hacer el movimiento y las inversiones
         actualizarContadores();
         return true;
     }
 
     private void actualizarContadores() {
-        // Reiniciamos los contadores antes de contar
         contadorJugador1 = 0;
         contadorJugador2 = 0;
-        // Recorre el tablero y cuenta las fichas de cada color
-        for (int fila = 0; fila < tamaño; fila++) {
-            for (int columna = 0; columna < tamaño; columna++) {
-                if (tablero[fila][columna] == ficha.getNegro()) {
-                    contadorJugador1++;
-                } else if (tablero[fila][columna] == ficha.getBlanco()) {
-                    contadorJugador2++;
-                }
-            }
-        }
-        // Actualiza los contadores en la vista
+        contarFichasRecursivo(0, 0);
         view.getLblContador1().setText(String.valueOf(contadorJugador1));
         view.getLblContador2().setText(String.valueOf(contadorJugador2));
     }
 
-    private boolean ambosJugadoresSinMovimientos() {
-        return !movimientosDisponibles(ficha.getNegro()) && !movimientosDisponibles(ficha.getBlanco());
+    private void contarFichasRecursivo(int fila, int columna) {
+        if (fila >= tamaño) {
+            return;
+        }
+
+        if (tablero[fila][columna] == ficha.getNegro()) {
+            contadorJugador1++;
+        } else if (tablero[fila][columna] == ficha.getBlanco()) {
+            contadorJugador2++;
+        }
+
+        if (columna < tamaño - 1) {
+            contarFichasRecursivo(fila, columna + 1);
+        } else {
+            contarFichasRecursivo(fila + 1, 0);
+        }
     }
 
-    private boolean movimientosDisponibles(int jugador) {
-        for (int fila = 0; fila < tamaño; fila++) {
-            for (int columna = 0; columna < tamaño; columna++) {
-                if (tablero[fila][columna] == vacio && puedeInvertir(fila, columna, false)) {
-                    return true;
-                }
-            }
+    private boolean ambosJugadoresSinMovimientos() {  //cola
+        return !movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0)
+                && !movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+    }
+
+    private boolean movimientosDisponiblesRecursivo(int jugador, int fila, int columna) {
+
+        if (fila >= tamaño) {
+            return false;
         }
-        return false;
+
+        if (tablero[fila][columna] == vacio && puedeInvertir(fila, columna, false)) {
+            return true;
+        }
+
+        if (columna < tamaño - 1) {
+            return movimientosDisponiblesRecursivo(jugador, fila, columna + 1);
+        } else {
+            return movimientosDisponiblesRecursivo(jugador, fila + 1, 0);
+        }
     }
 
     public void actualizarTurno() {
