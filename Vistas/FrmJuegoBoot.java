@@ -9,7 +9,9 @@ import Modelos.FichaBoot;
 import Modelos.JugadorBoot;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -22,7 +24,6 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     /**
      * Creates new form FrmJuegoBoot
      */
-    
     FrmJuegoBoot view;
     FichaBoot ficha = new FichaBoot();
     JugadorBoot jugador = new JugadorBoot();
@@ -30,7 +31,7 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     int jugadorActual = jugador.getJugadorActual();
     private String lblTurno;
     private Bot bot;
-    
+
     public FrmJuegoBoot(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -45,30 +46,28 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         iniciarFicha();
     }
 
-    
-     private void iniciarFicha() {
-        ficha.start(); 
+    private void iniciarFicha() {
+        ficha.start();
     }
-   
-    
+
     public String getLblTurno() {
         return lblTurno;
     }
 
-    public JLabel getContador1() {
-        return Contador1;
+    public JLabel getLblContador1() {
+        return lblContador1;
     }
 
-    public void setContador1(JLabel Contador1) {
-        this.Contador1 = Contador1;
+    public JLabel getLblContador2() {
+        return lblContador2;
     }
 
-    public JLabel getContador2() {
-        return Contador2;
+    public void setLblContador1(String texto) {
+        this.lblContador1.setText(texto);
     }
 
-    public void setContador2(JLabel Contador2) {
-        this.Contador2 = Contador2;
+    public void setLblContador2(String texto) {
+        this.lblContador2.setText(texto);
     }
 
     public void setLblContTurno(JLabel lblContTurno) {
@@ -128,10 +127,10 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BtnIniciar = new javax.swing.JButton();
+        BtnReiniciar = new javax.swing.JButton();
         BtnSalir = new javax.swing.JButton();
-        Contador1 = new javax.swing.JLabel();
-        Contador2 = new javax.swing.JLabel();
+        lblContador1 = new javax.swing.JLabel();
+        lblContador2 = new javax.swing.JLabel();
         lblNombreJ1 = new javax.swing.JLabel();
         lblNombreJ2 = new javax.swing.JLabel();
         lblJugador1 = new javax.swing.JLabel();
@@ -142,25 +141,33 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         BtnInfo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        BtnIniciar.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
-        BtnIniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar24.png"))); // NOI18N
-        BtnIniciar.setText("Reiniciar");
-        BtnIniciar.setContentAreaFilled(false);
-        BtnIniciar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BtnIniciar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar24.png"))); // NOI18N
-        BtnIniciar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar32.png"))); // NOI18N
-        BtnIniciar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        BtnIniciar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BtnIniciar.addActionListener(new java.awt.event.ActionListener() {
+        BtnReiniciar.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
+        BtnReiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar24.png"))); // NOI18N
+        BtnReiniciar.setText("Reiniciar");
+        BtnReiniciar.setContentAreaFilled(false);
+        BtnReiniciar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnReiniciar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar24.png"))); // NOI18N
+        BtnReiniciar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reiniciar32.png"))); // NOI18N
+        BtnReiniciar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        BtnReiniciar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIniciarActionPerformed(evt);
+                BtnReiniciarActionPerformed(evt);
             }
         });
 
         BtnSalir.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         BtnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir24.png"))); // NOI18N
-        BtnSalir.setText("Abandonar");
+        BtnSalir.setText("Rendirse");
         BtnSalir.setContentAreaFilled(false);
         BtnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnSalir.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/salir24.png"))); // NOI18N
@@ -173,9 +180,9 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
             }
         });
 
-        Contador1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+        lblContador1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
-        Contador2.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+        lblContador2.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
         lblNombreJ1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
 
@@ -229,7 +236,7 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(BtnIniciar)
+                .addComponent(BtnReiniciar)
                 .addGap(91, 91, 91)
                 .addComponent(pnlTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -246,11 +253,11 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
                         .addComponent(lblJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Contador1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblContador1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(146, 146, 146)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Contador2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblContador2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -268,8 +275,8 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
                             .addComponent(lblNombreJ2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Contador1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(Contador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lblContador1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
@@ -277,7 +284,7 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(BtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BtnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(BtnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnlTurno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -285,12 +292,12 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIniciarActionPerformed
-        bot.iniciarJuegobot();
-    }//GEN-LAST:event_BtnIniciarActionPerformed
+    private void BtnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReiniciarActionPerformed
+        bot.reiniciar();
+    }//GEN-LAST:event_BtnReiniciarActionPerformed
 
     private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
-
+        bot.rendirse();
     }//GEN-LAST:event_BtnSalirActionPerformed
 
     private void BtnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInfoActionPerformed
@@ -299,16 +306,29 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         frm.setVisible(true);
     }//GEN-LAST:event_BtnInfoActionPerformed
 
-    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        bot.iniciarJuegobot();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        int result = JOptionPane.showConfirmDialog(null, "¿Deseas cerrar el juego?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.YES_OPTION) {
+            dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnInfo;
-    private javax.swing.JButton BtnIniciar;
+    private javax.swing.JButton BtnReiniciar;
     private javax.swing.JButton BtnSalir;
-    private javax.swing.JLabel Contador1;
-    private javax.swing.JLabel Contador2;
     private javax.swing.JLabel lblCirculo;
     private javax.swing.JLabel lblContTurno;
+    private javax.swing.JLabel lblContador1;
+    private javax.swing.JLabel lblContador2;
     private javax.swing.JLabel lblJugador1;
     private javax.swing.JLabel lblJugador2;
     private javax.swing.JLabel lblNombreJ1;

@@ -5,7 +5,10 @@
 package Bots;
 
 import Modelos.Ficha;
+import Modelos.FichaBoot;
 import Modelos.Jugador;
+import Modelos.JugadorBoot;
+import Musica.Musica;
 import Vistas.FrmJuegoBoot;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,52 +25,28 @@ import javax.swing.SwingWorker;
  * @author DaniTini
  */
 public class Bot extends JPanel {
-    public static final int tamaño = 12;
+    
+public static final int tamaño = 4;
     private static final int vacio = 0;
 
-    private int contadorJugador1 = 0; 
-    private int contadorJugador2 = 0; 
+    private int contadorJugador1 = 0;
+    private int contadorJugador2 = 0;
     public boolean juegoEnProgreso = false;
     private int[][] tablero;
     public int filaSeleccionada;
     public int columnaSeleccionada;
 
-    Ficha ficha = new Ficha();
-    Jugador jugador = new Jugador();
-    String jugador1 = jugador.getJugador1();
-    String jugador2 = jugador.getJugador2();
+    FichaBoot ficha = new FichaBoot();
+    JugadorBoot jugador = new JugadorBoot();
+    String jugadorNombreJugador = jugador.getJugador();
+    String jugadorNombreBot = jugador.getJugadorBot();
     int jugadorActual = jugador.getJugadorActual();
 
     FrmJuegoBoot view;
     public String ultimoGanador = "";
 
     public Bot(FrmJuegoBoot view) {
-//        this.view = view;
-//        tablero = new int[tamaño][tamaño];
-//        jugadorActual = ficha.getNegro(); 
-//        addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                filaSeleccionada = e.getY() / obtenerTamañoCelda();
-//                columnaSeleccionada = e.getX() / obtenerTamañoCelda();
-//                if (esMovimientoValido(filaSeleccionada, columnaSeleccionada)) {
-//                    hacerMovimiento(filaSeleccionada, columnaSeleccionada);
-//                    cambiarTurno();
-//                    actualizarTurno(""); 
-//                    repaint();
-//                    if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-//                        mostrarGanador(jugador.getJugador1(), jugador.getJugador2());
-//                    } else {
-//                        if (jugadorActual == ficha.getBlanco()) {
-//                            realizarMovimientoBot();
-//                        }
-//                    }
-//                }
-//            }
-//        });
-//    }
-
-this.view = view;
+        this.view = view;
         tablero = new int[tamaño][tamaño];
         jugadorActual = ficha.getNegro();
         addMouseListener(new MouseAdapter() {
@@ -78,15 +57,14 @@ this.view = view;
                 if (esMovimientoValido(filaSeleccionada, columnaSeleccionada)) {
                     hacerMovimiento(filaSeleccionada, columnaSeleccionada);
                     cambiarTurno();
-
-                    // Ejecuta la actualización de turno en un nuevo hilo
-                    new Thread(() -> actualizarTurno("")).start();
-                    
+                    actualizarTurno();
                     repaint();
-                    verificarEstadoJuego();
-                    
-                    if (jugadorActual == ficha.getBlanco()) {
-                        realizarMovimientoBot();
+                    if (tablaLlena() || ambosJugadoresSinMovimientos()) {
+                        mostrarGanador();
+                    } else {
+                        if (jugadorActual == ficha.getBlanco()) {
+                            realizarMovimientoBot();
+                        }
                     }
                 }
             }
@@ -95,7 +73,7 @@ this.view = view;
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); 
+        super.paintComponent(g);
         int tamañoCelda = obtenerTamañoCelda();
         for (int fila = 0; fila < tamaño; fila++) {
             for (int columna = 0; columna < tamaño; columna++) {
@@ -105,43 +83,46 @@ this.view = view;
                 g.drawRect(columna * tamañoCelda, fila * tamañoCelda, tamañoCelda, tamañoCelda);
 
                 if (tablero[fila][columna] == ficha.getNegro()) {
-                    g.setColor(new Color(255, 255, 255)); 
+                    g.setColor(new Color(255, 255, 255));
                     g.fillOval(columna * tamañoCelda, fila * tamañoCelda, tamañoCelda, tamañoCelda);
                 } else if (tablero[fila][columna] == ficha.getBlanco()) {
-                    g.setColor(new Color(0, 0, 0)); 
+                    g.setColor(new Color(0, 0, 0));
                     g.fillOval(columna * tamañoCelda, fila * tamañoCelda, tamañoCelda, tamañoCelda);
                 }
             }
         }
     }
 
-    
     public int obtenerTamañoCelda() {
         return Math.min(getWidth(), getHeight()) / tamaño;
     }
 
-    private void mostrarGanador(String jugador1, String jugador2) {
-        if (!juegoEnProgreso) {
-            return; 
-        }
-        int fichasJugador1 = 0;
-        int fichasJugador2 = 0;
-
+    private void mostrarGanador() {
         String mensaje;
-        if (fichasJugador1 > fichasJugador2) {
-            mensaje = "Ganó " + jugador1 + " con " + fichasJugador1 + " fichas.";
-            ultimoGanador = jugador1;
-        } else if (fichasJugador2 > fichasJugador1) {
-            mensaje = "Ganó " + jugador2 + " con " + fichasJugador2 + " fichas.";
-            ultimoGanador = jugador2;
+        if (contadorJugador1 > contadorJugador2) {
+            mensaje = "Ganaste con " + contadorJugador1 + " fichas.";
+            ultimoGanador = jugadorNombreJugador;
+        } else if (contadorJugador2 > contadorJugador1) {
+            mensaje = "Ganó " + jugadorNombreBot + " con " + contadorJugador2 + " fichas.";
+            ultimoGanador = jugadorNombreBot;
         } else {
-            mensaje = "Empate. Ambos jugadores tienen " + fichasJugador1 + " fichas.";
+            mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
             ultimoGanador = "Empate";
         }
 
-        JOptionPane.showMessageDialog(view, mensaje); 
-        juegoEnProgreso = false; 
+        JOptionPane.showMessageDialog(view, mensaje);
+
+        // Reiniciar variables y preguntar si quieren jugar de nuevo
         reestablecerVariables();
+        tableroBorrado();
+        int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            juegoEnProgreso = false;
+            iniciarJuegobot();
+        } else {
+            juegoEnProgreso = false;
+            view.dispose();
+        }
     }
 
     public boolean esMovimientoValido(int filaSeleccionada, int columnaSeleccionada) {
@@ -204,29 +185,68 @@ this.view = view;
     public void iniciarJuegobot() {
         jugadorActual = ficha.getNegro();
         tablero = new int[tamaño][tamaño];
-        tablero[5][5] = ficha.getBlanco();
-        tablero[5][6] = ficha.getNegro();
-        tablero[6][5] = ficha.getNegro();
-        tablero[6][6] = ficha.getBlanco();
-        juegoEnProgreso = true; 
-        contadorJugador1 = 2; 
-        contadorJugador2 = 2; 
+        tablero[1][1] = ficha.getBlanco();
+        tablero[1][2] = ficha.getNegro();
+        tablero[2][1] = ficha.getNegro();
+        tablero[2][2] = ficha.getBlanco();
+        juegoEnProgreso = true;
+        contadorJugador1 = 2;
+        contadorJugador2 = 2;
         repaint();
-        actualizarTurno("");
+        actualizarTurno();
         view.setLblNombreJ1("Boot (Negro):");
         view.setLblNombreJ2("Tú (Blanco):");
-//        view.getLblContador1().setText(String.valueOf(contadorJugador1));
-//        view.getLblContador2().setText(String.valueOf(contadorJugador2));
+        view.getLblContador1().setText(String.valueOf(contadorJugador1));
+        view.getLblContador2().setText(String.valueOf(contadorJugador2));
 
+    }
+
+    public void reiniciar() {
+
+        int result = JOptionPane.showConfirmDialog(null, "¿Quieres jugar de nuevo?", "Reiniciar juego",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.YES_OPTION) {
+            // Reiniciar el estado del juego
+            juegoEnProgreso = false;
+            repaint();
+            reestablecerVariables();
+            iniciarJuegobot();
+        }
+    }
+
+    public boolean rendirse() {
+
+        // Obtén los nombres de los jugadores
+        String nombreJugadorActual = "Estimado(a)";
+
+        // Pregunta de confirmación personalizada con el nombre del jugador
+        int respuesta = JOptionPane.showConfirmDialog(null, nombreJugadorActual + ", ¿deseas rendirte?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+
+            JOptionPane.showMessageDialog(view, """
+                                                Te has rendido
+                                                
+                                                El bot te gano por deafult""", "Juego Abandonado", JOptionPane.WARNING_MESSAGE);
+
+            // Reinicia el estado del juego
+            juegoEnProgreso = false;
+            reestablecerVariables();
+            tableroBorrado();
+            view.dispose();
+            return true;
+        }
+        return false;
     }
 
     public void actualizarTurno() {
         if (view.getLblContTurno() != null) {
             JLabel lblCirculo = view.getLblCirculo();
-            String nombreJugadorActual = (jugadorActual == ficha.getNegro()) ? jugador1 : jugador2;
+            String nombreJugadorActual = (jugadorActual == ficha.getNegro()) ? jugadorNombreJugador : jugadorNombreBot;
             view.getLblContTurno().setText("Turno de: " + nombreJugadorActual);
             lblCirculo.setIcon(new ImageIcon(ClassLoader.getSystemResource(
-                    jugadorActual == ficha.getNegro() ? "Iconos/circuloNegro.png" : "Iconos/circuloblanco.png")));
+                    jugadorActual == ficha.getNegro() ? "Iconos/circuloBlanco.png" : "Iconos/circuloNegro.png")));
         }
     }
 
@@ -274,11 +294,11 @@ this.view = view;
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                Thread.sleep(1000); 
-                int[] movimiento = obtenerMejorMovimiento(); 
+                Thread.sleep(1000);
+                int[] movimiento = obtenerMejorMovimiento();
                 hacerMovimiento(movimiento[0], movimiento[1]);
                 cambiarTurno();
-                actualizarTurno(""); 
+                actualizarTurno();
                 return null;
             }
 
@@ -286,7 +306,7 @@ this.view = view;
             protected void done() {
                 repaint();
                 if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                    mostrarGanador(jugador.getJugador1(), jugador.getJugador2());
+                    mostrarGanador();
                 }
             }
         };
@@ -298,11 +318,11 @@ this.view = view;
         for (int i = 0; i < tamaño; i++) {
             for (int j = 0; j < tamaño; j++) {
                 if (esMovimientoValido(i, j)) {
-                    return new int[]{i, j}; 
+                    return new int[]{i, j};
                 }
             }
         }
-        return new int[]{-1, -1}; 
+        return new int[]{-1, -1};
     }
 
     public void reestablecerVariables() {
@@ -310,13 +330,6 @@ this.view = view;
         contadorJugador2 = 0;
         juegoEnProgreso = false;
         repaint();
-    }
-
-    public void actualizarTurno(String nuevoTurno) {
-        String turnoActual = (jugadorActual == ficha.getNegro()) ? jugador1 : jugador2;
-        if (!nuevoTurno.isEmpty()) {
-            turnoActual = nuevoTurno;
-        }
     }
 
     private void actualizarContadores() {
@@ -333,13 +346,7 @@ this.view = view;
                 }
             }
         }
-        view.getContador1().setText(String.valueOf(contadorJugador1));
-        view.getContador2().setText(String.valueOf(contadorJugador2));
-    }
-
-    private void verificarEstadoJuego() {
-        if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-            mostrarGanador(jugador.getJugador1(), jugador.getJugador2());
-        }
+        view.getLblContador1().setText(String.valueOf(contadorJugador1));
+        view.getLblContador2().setText(String.valueOf(contadorJugador2));
     }
 }

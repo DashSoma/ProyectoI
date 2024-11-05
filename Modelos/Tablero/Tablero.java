@@ -2,7 +2,7 @@ package Modelos.Tablero;
 
 import Modelos.Ficha;
 import Modelos.Jugador;
-import Musica.Metodos.Musica;
+import Musica.Musica;
 import Vistas.FrmJuego;
 import java.awt.Color;
 import java.awt.Graphics;

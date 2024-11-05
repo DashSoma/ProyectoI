@@ -1,6 +1,6 @@
 package Vistas;
 
-import Musica.Metodos.Musica;
+import Musica.Musica;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

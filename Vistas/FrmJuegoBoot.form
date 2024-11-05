@@ -8,6 +8,10 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -25,7 +29,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="BtnIniciar" min="-2" max="-2" attributes="0"/>
+              <Component id="BtnReiniciar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
               <Component id="pnlTurno" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -44,13 +48,13 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="Contador1" min="-2" pref="95" max="-2" attributes="0"/>
+                      <Component id="lblContador1" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblNombreJ2" min="-2" pref="110" max="-2" attributes="0"/>
-                  <Component id="Contador2" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="lblContador2" min="-2" pref="95" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="BtnInfo" min="-2" pref="65" max="-2" attributes="0"/>
@@ -72,8 +76,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Contador1" alignment="0" pref="30" max="32767" attributes="0"/>
-                          <Component id="Contador2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblContador1" alignment="0" pref="30" max="32767" attributes="0"/>
+                          <Component id="lblContador2" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -85,7 +89,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                       <Component id="BtnSalir" min="-2" pref="78" max="-2" attributes="0"/>
-                      <Component id="BtnIniciar" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="BtnReiniciar" min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
                   <Component id="pnlTurno" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -95,7 +99,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="BtnIniciar">
+    <Component class="javax.swing.JButton" name="BtnReiniciar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Showcard Gothic" size="12" style="0"/>
@@ -116,7 +120,7 @@
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnIniciarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnReiniciarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BtnSalir">
@@ -127,7 +131,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Iconos/salir24.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Abandonar"/>
+        <Property name="text" type="java.lang.String" value="Rendirse"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -143,14 +147,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnSalirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="Contador1">
+    <Component class="javax.swing.JLabel" name="lblContador1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Showcard Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Contador2">
+    <Component class="javax.swing.JLabel" name="lblContador2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Showcard Gothic" size="14" style="0"/>
