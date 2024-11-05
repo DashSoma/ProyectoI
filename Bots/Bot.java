@@ -6,6 +6,7 @@ package Bots;
 
 import Modelos.Ficha;
 import Modelos.Jugador;
+import Vistas.FrmJuegoBoot;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 import java.awt.Color;
 import java.awt.Graphics;

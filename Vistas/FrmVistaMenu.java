@@ -182,7 +182,9 @@ public class FrmVistaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInciarActionPerformed
 
     private void btnInciar1vsBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1vsBotActionPerformed
-
+        FrmJuegoBoot view = new FrmJuegoBoot(this, true);
+        musica.musicaInicio(false);
+        view.setVisible(true);
     }//GEN-LAST:event_btnInciar1vsBotActionPerformed
                                     
 
