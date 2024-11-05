@@ -1,6 +1,11 @@
 package Vistas;
 
+<<<<<<< HEAD
 import Musica.Metodos.Musica;
+=======
+import Bots.Bot;
+import Modelos.Tablero.Tablero;
+>>>>>>> 31e683e42620ef5c173450288a36584561076c37
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -44,8 +49,63 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         int yInfo = (int) (frameHeight * 0.07);
 
         btnInformacion.setLocation(xInfo, yInfo);
+<<<<<<< HEAD
         btnInciar1vsBot.setLocation(x1, y1);
         btnInciar1vsv1.setLocation(x2, y2);
+=======
+        btnInciar1.setLocation(x1, y1);
+        btnInciar.setLocation(x2, y2);
+    }
+
+//    public void llamarTableroBot2(int modoJuego) {
+//        FrmJuego view = new FrmJuego(null, true);
+//        Bot bot = new Bot(new FrmJuego(null, true));
+//        view.add(bot);
+//        System.out.println("Modo: Humano vs Bot");
+//        bot.iniciarJuegoBot(false);
+//        view.setVisible(true);
+//
+//    }
+//
+//    public void llamarTablero(int modoJuego) {
+//        FrmJuego view = new FrmJuego(this, true);
+//        Tablero tablero = new Tablero(new FrmJuego(this, true));
+//        view.add(tablero);
+//        System.out.println("Modo: Humano vs humano");
+//        tablero.iniciarJuego();
+//        view.setVisible(true);
+//
+//    }
+
+    public void MusicaInicio(boolean estado) {
+        try {
+            if (isMusicPlaying) {
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                    clip.close();
+                    clip = null;
+                    isMusicPlaying = false;
+
+                }
+            } else {
+                java.net.URL resource = getClass().getResource("/musica/Inicio.wav");
+                if (resource == null) {
+                    System.err.println("No se encontró el archivo de audio en la ruta especificada.");
+                    return;
+                }
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resource);
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                isMusicPlaying = true;
+                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                volumeControl.setValue(-10.0f);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+>>>>>>> 31e683e42620ef5c173450288a36584561076c37
     }
 
     @SuppressWarnings("unchecked")
@@ -164,16 +224,32 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
     private void btnInciar1vsv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1vsv1ActionPerformed
         FrmJuego view = new FrmJuego(this, true);
         musica.musicaInicio(false);
         view.setVisible(true);
         
     }//GEN-LAST:event_btnInciar1vsv1ActionPerformed
+=======
+    private void btnInciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciarActionPerformed
+        FrmJuego view = new FrmJuego(this,true);
+        view.setVisible(true);
+        MusicaInicio(false);
+        //llamarTablero(2);
+    }//GEN-LAST:event_btnInciarActionPerformed
+>>>>>>> 31e683e42620ef5c173450288a36584561076c37
 
     private void btnInciar1vsBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInciar1vsBotActionPerformed
 
+<<<<<<< HEAD
     }//GEN-LAST:event_btnInciar1vsBotActionPerformed
+=======
+        MusicaInicio(false);
+//        llamarTableroBot2(1);
+
+    }//GEN-LAST:event_btnInciar1ActionPerformed
+>>>>>>> 31e683e42620ef5c173450288a36584561076c37
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         musica.musicaInicio(true);
