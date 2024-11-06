@@ -24,14 +24,14 @@ public class Controlador1vsBot {
 
     public void iniciarJuegobot() {
         vista.mostrarMansaje("El juego ha comenzado \n\nInicias con las blancas", "¡Ha jugar!", JOptionPane.INFORMATION_MESSAGE);
-        vista.setLblNombreJ1("Boot (Negro)");
-        vista.setLblNombreJ2("Tú (Blanco)");
+        vista.setLblNombreJ1("Bot(Negro)");
+        vista.setLblNombreJ2("Tú(Blanco)");
         vista.getLblContador1().setText(String.valueOf(model.contadorJugador1));
         vista.getLblContador2().setText(String.valueOf(model.contadorJugador2));
         vista.getLblJugador1().setText("Jugador:");
         vista.getLblJugador2().setText("Jugador:");
-        vista.getLblNombreFichasActuales1().setText("Fichas Actuales:");
-        vista.getLblNombreFichasActuales2().setText("Fichas Actuales:");
+        vista.getLblNombreFichasActuales1().setText("Fichas:");
+        vista.getLblNombreFichasActuales2().setText("Fichas:");
         vista.getLblContador1().setText(String.valueOf("2"));
         vista.getLblContador2().setText(String.valueOf("2"));
         model.mostrarTabla();

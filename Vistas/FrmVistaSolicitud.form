@@ -110,14 +110,14 @@
         <Component class="javax.swing.JTextField" name="txtJugador2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Showcard Gothic" size="12" style="1"/>
+              <Font name="Segoe UI" size="12" style="1"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtJugador1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Showcard Gothic" size="12" style="1"/>
+              <Font name="Segoe UI" size="12" style="1"/>
             </Property>
           </Properties>
         </Component>

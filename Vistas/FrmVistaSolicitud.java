@@ -64,9 +64,9 @@ public class FrmVistaSolicitud extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         jLabel2.setText("Ingrese el nombre del Jugador 2:");
 
-        txtJugador2.setFont(new java.awt.Font("Showcard Gothic", 1, 12)); // NOI18N
+        txtJugador2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        txtJugador1.setFont(new java.awt.Font("Showcard Gothic", 1, 12)); // NOI18N
+        txtJugador1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         btnIniciar.setFont(new java.awt.Font("Showcard Gothic", 0, 12)); // NOI18N
         btnIniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/PlayV24.png"))); // NOI18N

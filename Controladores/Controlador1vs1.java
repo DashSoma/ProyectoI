@@ -71,8 +71,8 @@ public class Controlador1vs1 {
         model.mostrarTabla();
         vista.getLblJugador1().setText("Jugador:");
         vista.getLblJugador2().setText("Jugador:");
-        vista.getLblNombreFichasActuales1().setText("Fichas Actuales:");
-        vista.getLblNombreFichasActuales2().setText("Fichas Actuales:");
+        vista.getLblNombreFichasActuales1().setText("Fichas:");
+        vista.getLblNombreFichasActuales2().setText("Fichas:");
         vista.getLblContador1().setText(String.valueOf("2"));
         vista.getLblContador2().setText(String.valueOf("2"));
         model.actualizarTurno();
@@ -98,10 +98,8 @@ public class Controlador1vs1 {
     }
 
     public boolean rendirse() {
-
-        // Obtén los nombres de los jugadores
+        // Obtiene los nombres de los jugadores
         String nombreJugadorActual = (model.jugadorActual == model.ficha.getNegro()) ? vista.getLblNombreJ1().getText() : vista.getLblNombreJ2().getText();
-
         // Pregunta de confirmación personalizada con el nombre del jugador
         int respuesta = vista.mostrarMensajeConfirmacion(nombreJugadorActual + ", ¿deseas rendirte?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -109,7 +107,6 @@ public class Controlador1vs1 {
             String ganador, perdedor;
             model.jugadorNombre1 = vista.getLblNombreJ1().getText();
             model.jugadorNombre2 = vista.getLblNombreJ2().getText();
-
             if (model.jugadorActual == model.ficha.getNegro()) {
                 perdedor = "      " + model.jugadorNombre1 + ". te has rendido\n";
                 model.ultimoGanador = model.jugadorNombre2;
@@ -119,7 +116,6 @@ public class Controlador1vs1 {
                 model.ultimoGanador = model.jugadorNombre1;
                 ganador = "\n\n  " + model.jugadorNombre1 + " ¡HAS GANADO ";
             }
-
             vista.mostrarMansaje(perdedor + ganador, "Juego Abandonado", JOptionPane.WARNING_MESSAGE);
 
             // Reinicia el estado del juego
@@ -144,9 +140,7 @@ public class Controlador1vs1 {
             mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
             model.ultimoGanador = "Empate";
         }
-
         vista.mostrarMansaje(mensaje, "Felicidades", JOptionPane.INFORMATION_MESSAGE);
-
         // Reiniciar variables y preguntar si quieren jugar de nuevo
         model.reestablecerVariables();
         model.tableroBorrado();
