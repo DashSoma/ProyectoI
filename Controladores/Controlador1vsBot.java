@@ -24,8 +24,8 @@ public class Controlador1vsBot {
 
     public void iniciarJuegobot() {
         vista.mostrarMansaje("El juego ha comenzado \n\nInicias con las blancas", "¡Ha jugar!", JOptionPane.INFORMATION_MESSAGE);
-        vista.setLblNombreJ1("Bot(Negro)");
-        vista.setLblNombreJ2("Tú(Blanco)");
+        vista.setLblNombreJ1("Bot(Blanco)");
+        vista.setLblNombreJ2("Tú(Negro)");
         vista.getLblContador1().setText(String.valueOf(model.contadorJugador1));
         vista.getLblContador2().setText(String.valueOf(model.contadorJugador2));
         vista.getLblJugador1().setText("Jugador:");
@@ -46,7 +46,7 @@ public class Controlador1vsBot {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (result == JOptionPane.YES_OPTION) {
-            // Reiniciar el estado del juego
+           
             model.juegoEnProgreso = false;
             model.repaint();
             model.reestablecerVariables();
@@ -56,10 +56,8 @@ public class Controlador1vsBot {
 
     public boolean rendirse() {
 
-        // Obtén los nombres de los jugadores
         String nombreJugadorActual = "Estimado(a)";
 
-        // Pregunta de confirmación personalizada con el nombre del jugador
         int respuesta = vista.mostrarMensajeConfirmacion(nombreJugadorActual + ", ¿deseas rendirte?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (respuesta == JOptionPane.YES_OPTION) {
@@ -69,7 +67,6 @@ public class Controlador1vsBot {
                                                 
                                                 El bot te gano por deafult""", "Juego Abandonado", JOptionPane.WARNING_MESSAGE);
 
-            // Reinicia el estado del juego
             model.juegoEnProgreso = false;
             model.reestablecerVariables();
             model.tableroBorrado();
@@ -85,7 +82,6 @@ public class Controlador1vsBot {
             mensaje = "Ganaste con " + model.contadorJugador1 + " fichas.";
             model.ultimoGanador = model.jugadorNombreJugador;
             titulo = "¡Felicides!";
-//            model.musica.musicaGanador(true);
         } else if (model.contadorJugador2 > model.contadorJugador1) {
             mensaje = "El Bot te ha ganado con " + model.contadorJugador2 + " fichas.";
             model.ultimoGanador = model.jugadorNombreBot;
@@ -94,12 +90,10 @@ public class Controlador1vsBot {
         } else {
             mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
             model.ultimoGanador = "Empate";
-//            model.musica.musicaEmpate(true);
         }
 
         vista.mostrarMansaje(mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
 
-        // Reiniciar variables y preguntar si quieren jugar de nuevo
         model.reestablecerVariables();
         model.tableroBorrado();
         int result = vista.mostrarMensajeConfirmacion("¡¿Quieres jugar de nuevo?", "Si deseas, puedes volver a jugar!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);

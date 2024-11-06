@@ -254,28 +254,59 @@ public class Tablero1vsBot extends JPanel implements Runnable {
     }
 
 // Método para verificar si ambos jugadores pueden hacer movimientos
-    private boolean hayMovimientosParaAmbosJugadores() {
-        boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
-        boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
-
-//        // Solo muestra un mensaje si un jugador no tiene movimientos disponibles
-//        if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
-//            JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego.");
-//            return false; // Terminamos el juego
+//    private boolean hayMovimientosParaAmbosJugadores() {
+//        boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+//        boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
+//
+////        // Solo muestra un mensaje si un jugador no tiene movimientos disponibles
+////        if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
+////            JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego.");
+////            return false; // Terminamos el juego
+////        }
+//        if (!jugador1TieneMovimientos) {
+//            JOptionPane.showMessageDialog(null, "No tienes movimientos, se pasa el turno al bot.");
+//            jugadorActual = ficha.getNegro(); // Pasar turno al bot
+//            actualizarTurno();
+//        } else if (!jugador2TieneMovimientos) {
+//            JOptionPane.showMessageDialog(this, "El bot se quedó sin movimientos, es tu turno.");
+//            jugadorActual = ficha.getBlanco(); // Pasar turno al jugador
+//            actualizarTurno();
 //        }
-        if (!jugador1TieneMovimientos) {
-            JOptionPane.showMessageDialog(null, "No tienes movimientos, se pasa el turno al bot.");
-            jugadorActual = ficha.getNegro(); // Pasar turno al bot
-            actualizarTurno();
-        } else if (!jugador2TieneMovimientos) {
-            JOptionPane.showMessageDialog(this, "El bot se quedó sin movimientos, es tu turno.");
-            jugadorActual = ficha.getBlanco(); // Pasar turno al jugador
-            actualizarTurno();
-        }
+//
+//        return true;
+//    }
 
-        return true;
+    
+    private boolean hayMovimientosParaAmbosJugadores() {
+    boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+    boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
+
+    if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
+        mostrarMensajeFinDeJuego();
+        return false;
     }
 
+    if (!jugador1TieneMovimientos) {
+        mostrarMensajeCambioDeTurno("No tienes movimientos, se pasa el turno al bot.");
+        jugadorActual = ficha.getNegro(); 
+    } else if (!jugador2TieneMovimientos) {
+        mostrarMensajeCambioDeTurno("El bot se quedó sin movimientos, es tu turno.");
+        jugadorActual = ficha.getBlanco(); 
+    }
+
+    actualizarTurno();
+    return true;
+}
+
+private void mostrarMensajeFinDeJuego() {
+    JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego.");
+}
+
+private void mostrarMensajeCambioDeTurno(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje);
+}
+    
+    
     private boolean movimientosDisponiblesRecursivo(int jugador, int fila, int columna) {
 
         if (fila >= tamaño) {
