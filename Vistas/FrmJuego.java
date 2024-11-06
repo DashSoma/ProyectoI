@@ -48,6 +48,8 @@ public class FrmJuego extends javax.swing.JDialog {
         contenedorTablero.setBorder(new EmptyBorder(80, 80, 80, 80));
         contenedorTablero.add(tablero, BorderLayout.CENTER);
         add(contenedorTablero, BorderLayout.CENTER);
+        Thread HiloJuego = new Thread();
+        HiloJuego.start();
     }
 
     public String getLblTurno() {

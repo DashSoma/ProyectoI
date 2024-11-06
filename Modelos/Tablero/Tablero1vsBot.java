@@ -25,7 +25,7 @@ import javax.swing.SwingWorker;
  *
  * @author DaniTini
  */
-public class Tablero1vsBot extends JPanel {
+public class Tablero1vsBot extends JPanel implements Runnable{
 
     private static final int tamaño = 4;
     private static final int vacio = 0;
@@ -295,5 +295,10 @@ public class Tablero1vsBot extends JPanel {
         };
         worker.execute();
 
+    }
+
+    @Override
+    public void run() {
+        puedeInvertir(0, 0, false);
     }
 }

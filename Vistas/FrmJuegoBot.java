@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+
 /**
  *
  * @author dashs
@@ -52,6 +53,8 @@ public class FrmJuegoBot extends javax.swing.JDialog {
         contenedorTablero.add(tablero, BorderLayout.CENTER);
         add(contenedorTablero, BorderLayout.CENTER);
         iniciarFicha();
+        Thread HiloBot = new Thread();
+        HiloBot.start();
     }
 
     private void iniciarFicha() {

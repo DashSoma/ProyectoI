@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author Chrisp
  */
-public class Tablero1vs1 extends JPanel {
+public class Tablero1vs1 extends JPanel implements Runnable  {
 
    public static final int tamaño = 4;
     private static final int vacio = 0;
@@ -282,4 +282,10 @@ public class Tablero1vs1 extends JPanel {
         contadorJugador2 = 0;
         repaint();
     }
+
+    @Override
+    public void run() {
+        puedeInvertir(0, 0, false);
+    }
+    
 }
