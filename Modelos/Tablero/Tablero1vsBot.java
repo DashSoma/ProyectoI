@@ -241,15 +241,6 @@ public class Tablero1vsBot extends JPanel implements Runnable {
             controlador.vista.mostrarMansaje("Juego terminado", "Ningún jugador tiene posibles movimientos", JOptionPane.INFORMATION_MESSAGE);
             return false; // Terminamos el juego
         }
-//        if (!jugador1TieneMovimientos) {
-//            JOptionPane.showMessageDialog(null, "No tienes movimientos, se pasa el turno al bot.");
-//            jugadorActual = ficha.getNegro(); // Pasar turno al bot
-//            actualizarTurno();
-//        } else if (!jugador2TieneMovimientos) {
-//            JOptionPane.showMessageDialog(this, "El bot se quedó sin movimientos, es tu turno.");
-//            jugadorActual = ficha.getBlanco(); // Pasar turno al jugador
-//            actualizarTurno();
-//        }
 
         return true;
     }
