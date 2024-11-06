@@ -286,6 +286,8 @@ public class Tablero1vs1 extends JPanel implements Runnable  {
     @Override
     public void run() {
         puedeInvertir(0, 0, false);
+                paintComponent(getComponentGraphics(getGraphics()));
+
     }
     
 }
