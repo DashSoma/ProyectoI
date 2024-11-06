@@ -47,7 +47,7 @@ public class Tablero1vsBot extends JPanel {
     FrmJuegoBot view;
     public String ultimoGanador = "";
 
-    public Tablero1vsBot(FrmJuegoBot view,Musica musica) {
+    public Tablero1vsBot(FrmJuegoBot view, Musica musica) {
         this.view = view;
         this.musica = musica;
         controlador = new Controlador1vsBot(this, view);
@@ -102,15 +102,20 @@ public class Tablero1vsBot extends JPanel {
         return Math.min(getWidth(), getHeight()) / tamaño;
     }
 
-    public boolean tablaLlena() {
-        for (filaSeleccionada = 0; filaSeleccionada < tamaño; filaSeleccionada++) {
-            for (columnaSeleccionada = 0; columnaSeleccionada < tamaño; columnaSeleccionada++) {
-                if (tablero[filaSeleccionada][columnaSeleccionada] == vacio) {
-                    return false;
-                }
-            }
+    public boolean TablaLlena(int fila, int columna) {//Directa
+        if (fila == tamaño) {
+            return true;
         }
-        return false;
+        if (tablero[fila][columna] == vacio) {
+            return false;
+        }
+        int nuevaFila = columna == tamaño - 1 ? fila + 1 : fila;
+        int nuevaColumna = (columna + 1) % tamaño;
+        return TablaLlena(nuevaFila, nuevaColumna);
+    }
+
+    public boolean tablaLlena() {
+        return TablaLlena(0, 0);
     }
 
     public void mostrarTabla() {
@@ -145,14 +150,17 @@ public class Tablero1vsBot extends JPanel {
         repaint();
     }
 
-    private void invertir(int fila, int columnaSeleccionada, int dFila, int dColumna) {
+    private void invertir(int fila, int columnaSeleccionada, int dFila, int dColumna) {//Drirecta 
         int r = fila + dFila;
         int c = columnaSeleccionada + dColumna;
-        while (tablero[r][c] != jugadorActual) {
-            tablero[r][c] = jugadorActual;
-            r += dFila;
-            c += dColumna;
+
+        if (r < 0 || r >= tamaño || c < 0 || c >= tamaño || tablero[r][c] == jugadorActual) {
+            return;
         }
+
+        tablero[r][c] = jugadorActual;
+
+        invertir(r, c, dFila, dColumna);
     }
 
     private boolean puedeInvertir(int filaSeleccionada, int columnaSeleccionada, boolean movimientoActual) {

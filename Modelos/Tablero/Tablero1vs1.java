@@ -105,7 +105,7 @@ public class Tablero1vs1 extends JPanel {
         repaint();
     }
 
-    public boolean TablaLlena(int fila, int columna) {// Directa y simple 
+    public boolean TablaLlena(int fila, int columna) {// Directa  
         if (fila == tamaño) {
             return true;
         }
@@ -192,12 +192,12 @@ public class Tablero1vs1 extends JPanel {
     private void actualizarContadores() {
         contadorJugador1 = 0;
         contadorJugador2 = 0;
-        contarFichasRecursivo(0, 0);
+        contarFichas(0, 0);
         view.getLblContador1().setText(String.valueOf(contadorJugador1));
         view.getLblContador2().setText(String.valueOf(contadorJugador2));
     }
 
-    private void contarFichasRecursivo(int fila, int columna) {
+    private void contarFichas(int fila, int columna) {
         if (fila >= tamaño) {
             return;
         }
@@ -209,9 +209,9 @@ public class Tablero1vs1 extends JPanel {
         }
 
         if (columna < tamaño - 1) {
-            contarFichasRecursivo(fila, columna + 1);
+            contarFichas(fila, columna + 1);
         } else {
-            contarFichasRecursivo(fila + 1, 0);
+            contarFichas(fila + 1, 0);
         }
     }
 
