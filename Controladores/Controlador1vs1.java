@@ -150,7 +150,7 @@ public class Controlador1vs1 {
         // Reiniciar variables y preguntar si quieren jugar de nuevo
         model.reestablecerVariables();
         model.tableroBorrado();
-        int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "Si deseas, pudes volver a jugar", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
             model.juegoEnProgreso = false;
             iniciarJuego();

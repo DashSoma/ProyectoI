@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -21,15 +22,15 @@ public class Tablero1vs1 extends JPanel {
 
    public static final int tamaño = 4;
     private static final int vacio = 0;
-    public int contadorJugador1 = 0; 
-    public int contadorJugador2 = 0; 
+    public int contadorJugador1 = 0;
+    public int contadorJugador2 = 0;
     public boolean juegoEnProgreso = false;
     private int[][] tablero;
     public int filaSeleccionada;
     public int columnaSeleccionada;
     public Ficha ficha = new Ficha();
     Jugador jugador = new Jugador();
-    Controlador1vs1 controller;
+    Controlador1vs1 controlador;
     Musica musica;
     public String jugadorNombre1 = jugador.getJugador1();
     public String jugadorNombre2 = jugador.getJugador2();
@@ -41,10 +42,11 @@ public class Tablero1vs1 extends JPanel {
         this.view = view;
         this.ficha = ficha;
         this.jugador = jugador;
-        this.controller = new Controlador1vs1(this, view);
+        this.controlador = new Controlador1vs1(this, view);
         musica = new Musica();
         tablero = new int[tamaño][tamaño];
         jugadorActual = ficha.getNegro();
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -57,8 +59,9 @@ public class Tablero1vs1 extends JPanel {
                     actualizarTurno();
                     repaint();
 
-                    if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                        controller.mostrarGanador();
+                    // Verificar fin de juego
+                    if (esFinDeJuego()) {
+                        controlador.mostrarGanador();
                     }
                 }
             }
@@ -212,10 +215,32 @@ public class Tablero1vs1 extends JPanel {
         }
     }
 
-    private boolean ambosJugadoresSinMovimientos() {  //cola
-        return !movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0)
-                && !movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+    // Método para verificar si el juego debe finalizar
+    private boolean esFinDeJuego() {
+        return tablaLlena() || !hayMovimientosParaAmbosJugadores();
     }
+
+// Método para verificar si ambos jugadores pueden hacer movimientos
+    private boolean hayMovimientosParaAmbosJugadores() {
+    boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
+    boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+
+    if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
+        JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego."); 
+        return false;
+    }
+
+    if (!jugador1TieneMovimientos) {
+        JOptionPane.showMessageDialog(this, jugadorNombre1 + " sin movimientos, se pasa el turno a " + jugadorNombre2);
+        jugadorActual = ficha.getBlanco();
+        actualizarTurno();
+    } else if (!jugador2TieneMovimientos) {
+        JOptionPane.showMessageDialog(this, jugadorNombre2 + " sin movimientos, se pasa el turno a " + jugadorNombre1);
+        jugadorActual = ficha.getNegro();
+        actualizarTurno();
+    }
+    return true;
+}
 
     private boolean movimientosDisponiblesRecursivo(int jugador, int fila, int columna) {
 
@@ -247,8 +272,6 @@ public class Tablero1vs1 extends JPanel {
     public void reestablecerVariables() {
         view.getLblJugador1().setText("");
         view.getLblJugador2().setText("");
-        view.getLblNombreFichasActuales1().setText("");
-        view.getLblNombreFichasActuales2().setText("");
         view.setLblNombreJ1("");
         view.setLblNombreJ2("");
         view.setLblContador1("");

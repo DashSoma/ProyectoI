@@ -24,8 +24,8 @@ public class Controlador1vsBot {
 
     public void iniciarJuegobot() {
         vista.mostrarMansaje("El juego ha comenzado \n\nInicias con las blancas", "¡Ha jugar!", JOptionPane.INFORMATION_MESSAGE);
-        vista.setLblNombreJ1("Boot (Negro):");
-        vista.setLblNombreJ2("Tú (Blanco):");
+        vista.setLblNombreJ1("Boot (Negro)");
+        vista.setLblNombreJ2("Tú (Blanco)");
         vista.getLblContador1().setText(String.valueOf(model.contadorJugador1));
         vista.getLblContador2().setText(String.valueOf(model.contadorJugador2));
         vista.getLblJugador1().setText("Jugador:");
