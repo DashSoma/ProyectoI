@@ -17,10 +17,15 @@ public class Controlador1vs1 {
 
     Tablero1vs1 model;
     FrmJuego vista;
+    FrmVistaSolicitud v;
 
     public Controlador1vs1(Tablero1vs1 model, FrmJuego vista) {
         this.model = model;
         this.vista = vista;
+    }
+
+    public Controlador1vs1(FrmVistaSolicitud v) {
+        this.v = v;
     }
 
     public void iniciarJuego() {
@@ -28,7 +33,6 @@ public class Controlador1vs1 {
         boolean nombresValidos = false;
         while (!nombresValidos) {
             FrmVistaSolicitud v = new FrmVistaSolicitud(null, true, vista);
-            v.setVisible(true);
 
             // Verifica si el usuario ha cancelado
             model.jugadorNombre1 = v.getJugador1();
@@ -53,20 +57,11 @@ public class Controlador1vs1 {
         }
 
         // Determina quién inicia el juego
-        int jugadorInicial = (int) (Math.random() * 2);
-        if (jugadorInicial == 0) {
-            vista.mostrarMansaje("Inicia el Jugador: " + model.jugadorNombre1
-                    + "\nEl segundo jugador es: " + model.jugadorNombre2, "¡Inician las fichas negras!", JOptionPane.INFORMATION_MESSAGE);
-            vista.setLblNombreJ1(model.jugadorNombre1);
-            vista.setLblNombreJ2(model.jugadorNombre2);
-            model.jugadorActual = model.ficha.getNegro();
-        } else {
-            vista.mostrarMansaje("Inicia el Jugador: " + model.jugadorNombre2
-                    + "\nEl segundo jugador es: " + model.jugadorNombre1, "¡Inician las fichas negras!", JOptionPane.INFORMATION_MESSAGE);
-            vista.setLblNombreJ1(model.jugadorNombre2);
-            vista.setLblNombreJ2(model.jugadorNombre1);
-            model.jugadorActual = model.ficha.getBlanco();
-        }
+        vista.mostrarMansaje("Inicia el Jugador: " + model.jugadorNombre1
+                + "\nEl segundo jugador es: " + model.jugadorNombre2, "¡Inician las fichas negras!", JOptionPane.INFORMATION_MESSAGE);
+        vista.setLblNombreJ1(model.jugadorNombre1);
+        vista.setLblNombreJ2(model.jugadorNombre2);
+        model.jugadorActual = model.ficha.getNegro();
 
         model.mostrarTabla();
         vista.getLblJugador1().setText("Jugador:");

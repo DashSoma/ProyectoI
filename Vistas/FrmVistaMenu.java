@@ -2,6 +2,8 @@ package Vistas;
 
 import Musica.Musica;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
@@ -50,6 +52,15 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         btnInciar1vsv1.setLocation(x2, y2);
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource(
+                        "Iconos/icon.png"));
+
+        return retValue;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -65,6 +76,7 @@ public class FrmVistaMenu extends javax.swing.JFrame {
         btnInformacion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

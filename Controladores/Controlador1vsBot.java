@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Controlador1vsBot {
 
     Tablero1vsBot model;
-    FrmJuegoBot vista;
+    public FrmJuegoBot vista;
 
     public Controlador1vsBot(Tablero1vsBot model, FrmJuegoBot vista) {
         this.model = model;
@@ -23,7 +23,7 @@ public class Controlador1vsBot {
     }
 
     public void iniciarJuegobot() {
-        vista.mostrarMansaje("El juego ha comenzado \n\nInicias con las blancas", "¡Ha jugar!", JOptionPane.INFORMATION_MESSAGE);
+        vista.mostrarMansaje("El juego ha comenzado \n\nInicias con las negras", "¡Ha jugar!", JOptionPane.INFORMATION_MESSAGE);
         vista.setLblNombreJ1("Bot(Blanco)");
         vista.setLblNombreJ2("Tú(Negro)");
         vista.getLblContador1().setText(String.valueOf(model.contadorJugador1));
@@ -46,7 +46,7 @@ public class Controlador1vsBot {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (result == JOptionPane.YES_OPTION) {
-           
+
             model.juegoEnProgreso = false;
             model.repaint();
             model.reestablecerVariables();
@@ -77,19 +77,25 @@ public class Controlador1vsBot {
     }
 
     public void mostrarGanador() {
-        String mensaje, titulo = null;
+        String mensaje = null, titulo = null;
         if (model.contadorJugador1 > model.contadorJugador2) {
             mensaje = "Ganaste con " + model.contadorJugador1 + " fichas.";
             model.ultimoGanador = model.jugadorNombreJugador;
             titulo = "¡Felicides!";
-        } else if (model.contadorJugador2 > model.contadorJugador1) {
+
+        } else if (model.contadorJugador1 == model.contadorJugador2) {
+            mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
+            model.ultimoGanador = "Empate";
+            model.musica.musicaEmpate(true);
+        } 
+        
+        if (model.contadorJugador2 > model.contadorJugador1) {
             mensaje = "El Bot te ha ganado con " + model.contadorJugador2 + " fichas.";
             model.ultimoGanador = model.jugadorNombreBot;
             titulo = "¡Suerte en la próxima!";
             model.musica.musicaPerdedor(true);
-        } else {
-            mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
-            model.ultimoGanador = "Empate";
+        }else{
+        model.musica.musicaGanador(true);
         }
 
         vista.mostrarMansaje(mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
@@ -99,9 +105,6 @@ public class Controlador1vsBot {
         int result = vista.mostrarMensajeConfirmacion("¡¿Quieres jugar de nuevo?", "Si deseas, puedes volver a jugar!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
             model.juegoEnProgreso = false;
-//            model.musica.musicaGanador(false);
-////            model.musica.musicaPerdedor(false);
-//            model.musica.musicaEmpate(false);
             iniciarJuegobot();
         } else {
             model.juegoEnProgreso = false;

@@ -28,10 +28,11 @@ public class Tablero1vs1 extends JPanel implements Runnable  {
     private int[][] tablero;
     public int filaSeleccionada;
     public int columnaSeleccionada;
+    public int jugadorInicial = (int) (Math.random() * 2);
     public Ficha ficha = new Ficha();
     Jugador jugador = new Jugador();
     Controlador1vs1 controlador;
-    Musica musica;
+    public Musica musica;
     public String jugadorNombre1 = jugador.getJugador1();
     public String jugadorNombre2 = jugador.getJugador2();
     public int jugadorActual = jugador.getJugadorActual();

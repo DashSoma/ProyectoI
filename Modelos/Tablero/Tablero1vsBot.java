@@ -208,7 +208,7 @@ public class Tablero1vsBot extends JPanel implements Runnable {
     public boolean hacerMovimiento(int filaSeleccionada, int columnaSeleccionada) {
         tablero[filaSeleccionada][columnaSeleccionada] = jugadorActual;
         puedeInvertir(filaSeleccionada, columnaSeleccionada, false);
-        actualizarContadores();
+        actualizarContadores(); 
         return true;
     }
 
@@ -230,39 +230,21 @@ public class Tablero1vsBot extends JPanel implements Runnable {
         view.getLblContador2().setText(String.valueOf(contadorJugador2));
     }
 
-    private void contarFichas(int fila, int columna) {
-        if (fila >= tamaño) {
-            return;
-        }
-
-        if (tablero[fila][columna] == ficha.getNegro()) {
-            contadorJugador1++;
-        } else if (tablero[fila][columna] == ficha.getBlanco()) {
-            contadorJugador2++;
-        }
-
-        if (columna < tamaño - 1) {
-            contarFichas(fila, columna + 1);
-        } else {
-            contarFichas(fila + 1, 0);
-        }
-    }
-
     // Método para verificar si el juego debe finalizar
     private boolean esFinDeJuego() {
         return tablaLlena() || !hayMovimientosParaAmbosJugadores();
     }
 
 // Método para verificar si ambos jugadores pueden hacer movimientos
-//    private boolean hayMovimientosParaAmbosJugadores() {
-//        boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
-//        boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
-//
-////        // Solo muestra un mensaje si un jugador no tiene movimientos disponibles
-////        if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
-////            JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego.");
-////            return false; // Terminamos el juego
-////        }
+    private boolean hayMovimientosParaAmbosJugadores() {
+        boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+        boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
+
+        // Solo muestra un mensaje si un jugador no tiene movimientos disponibles
+        if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
+            controlador.vista.mostrarMansaje("Juego terminado", "Ningún jugador tiene posibles movimientos", JOptionPane.INFORMATION_MESSAGE);
+            return false; // Terminamos el juego
+        }
 //        if (!jugador1TieneMovimientos) {
 //            JOptionPane.showMessageDialog(null, "No tienes movimientos, se pasa el turno al bot.");
 //            jugadorActual = ficha.getNegro(); // Pasar turno al bot
@@ -272,41 +254,10 @@ public class Tablero1vsBot extends JPanel implements Runnable {
 //            jugadorActual = ficha.getBlanco(); // Pasar turno al jugador
 //            actualizarTurno();
 //        }
-//
-//        return true;
-//    }
 
-    
-    private boolean hayMovimientosParaAmbosJugadores() {
-    boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
-    boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
-
-    if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
-        mostrarMensajeFinDeJuego();
-        return false;
+        return true;
     }
 
-    if (!jugador1TieneMovimientos) {
-        mostrarMensajeCambioDeTurno("No tienes movimientos, se pasa el turno al bot.");
-        jugadorActual = ficha.getNegro(); 
-    } else if (!jugador2TieneMovimientos) {
-        mostrarMensajeCambioDeTurno("El bot se quedó sin movimientos, es tu turno.");
-        jugadorActual = ficha.getBlanco(); 
-    }
-
-    actualizarTurno();
-    return true;
-}
-
-private void mostrarMensajeFinDeJuego() {
-    JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego.");
-}
-
-private void mostrarMensajeCambioDeTurno(String mensaje) {
-    JOptionPane.showMessageDialog(this, mensaje);
-}
-    
-    
     private boolean movimientosDisponiblesRecursivo(int jugador, int fila, int columna) {
 
         if (fila >= tamaño) {
@@ -391,7 +342,7 @@ private void mostrarMensajeCambioDeTurno(String mensaje) {
     @Override
     public void run() {
         puedeInvertir(0, 0, false);
-                    paintComponent(getComponentGraphics(getGraphics()));
+        paintComponent(getComponentGraphics(getGraphics()));
 
     }
 }
