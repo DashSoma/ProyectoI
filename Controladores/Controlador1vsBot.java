@@ -85,7 +85,7 @@ public class Controlador1vsBot {
             mensaje = "Ganaste con " + model.contadorJugador1 + " fichas.";
             model.ultimoGanador = model.jugadorNombreJugador;
             titulo = "¡Felicides!";
-            model.musica.musicaGanador(true);
+//            model.musica.musicaGanador(true);
         } else if (model.contadorJugador2 > model.contadorJugador1) {
             mensaje = "El Bot te ha ganado con " + model.contadorJugador2 + " fichas.";
             model.ultimoGanador = model.jugadorNombreBot;
@@ -94,7 +94,7 @@ public class Controlador1vsBot {
         } else {
             mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
             model.ultimoGanador = "Empate";
-            model.musica.musicaEmpate(true);
+//            model.musica.musicaEmpate(true);
         }
 
         vista.mostrarMansaje(mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
@@ -105,9 +105,9 @@ public class Controlador1vsBot {
         int result = vista.mostrarMensajeConfirmacion("¡¿Quieres jugar de nuevo?", "Si deseas, puedes volver a jugar!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
             model.juegoEnProgreso = false;
-            model.musica.musicaGanador(false);
-            model.musica.musicaPerdedor(false);
-            model.musica.musicaEmpate(false);
+//            model.musica.musicaGanador(false);
+////            model.musica.musicaPerdedor(false);
+//            model.musica.musicaEmpate(false);
             iniciarJuegobot();
         } else {
             model.juegoEnProgreso = false;

@@ -19,13 +19,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 /**
  *
  * @author DaniTini
  */
-public class Tablero1vsBot extends JPanel implements Runnable{
+public class Tablero1vsBot extends JPanel implements Runnable {
 
     private static final int tamaño = 4;
     private static final int vacio = 0;
@@ -64,9 +65,10 @@ public class Tablero1vsBot extends JPanel implements Runnable{
                     musica.musicaJuego(true);
                     actualizarTurno();
                     repaint();
-                    if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                        controlador.mostrarGanador();
-                    } else {
+                    {
+                        if (esFinDeJuego()) {
+                            controlador.mostrarGanador();
+                        }
                         if (jugadorActual == ficha.getBlanco()) {
                             realizarMovimientoBot();
                         }
@@ -87,10 +89,10 @@ public class Tablero1vsBot extends JPanel implements Runnable{
                 g.setColor(new Color(0, 0, 0));
                 g.drawRect(columna * tamañoCelda, fila * tamañoCelda, tamañoCelda, tamañoCelda);
 
-                if (tablero[fila][columna] == ficha.getNegro()) {
+                if (tablero[fila][columna] == ficha.getBlanco()) {
                     g.setColor(new Color(255, 255, 255));
                     g.fillOval(columna * tamañoCelda, fila * tamañoCelda, tamañoCelda, tamañoCelda);
-                } else if (tablero[fila][columna] == ficha.getBlanco()) {
+                } else if (tablero[fila][columna] == ficha.getNegro()) {
                     g.setColor(new Color(0, 0, 0));
                     g.fillOval(columna * tamañoCelda, fila * tamañoCelda, tamañoCelda, tamañoCelda);
                 }
@@ -228,19 +230,67 @@ public class Tablero1vsBot extends JPanel implements Runnable{
         view.getLblContador2().setText(String.valueOf(contadorJugador2));
     }
 
-    private boolean movimientosDisponibles(int jugador) {
-        for (int fila = 0; fila < tamaño; fila++) {
-            for (int columna = 0; columna < tamaño; columna++) {
-                if (tablero[fila][columna] == vacio && puedeInvertir(fila, columna, false)) {
-                    return true;
-                }
-            }
+    private void contarFichas(int fila, int columna) {
+        if (fila >= tamaño) {
+            return;
         }
-        return false;
+
+        if (tablero[fila][columna] == ficha.getNegro()) {
+            contadorJugador1++;
+        } else if (tablero[fila][columna] == ficha.getBlanco()) {
+            contadorJugador2++;
+        }
+
+        if (columna < tamaño - 1) {
+            contarFichas(fila, columna + 1);
+        } else {
+            contarFichas(fila + 1, 0);
+        }
     }
 
-    private boolean ambosJugadoresSinMovimientos() {
-        return !movimientosDisponibles(ficha.getNegro()) && !movimientosDisponibles(ficha.getBlanco());
+    // Método para verificar si el juego debe finalizar
+    private boolean esFinDeJuego() {
+        return tablaLlena() || !hayMovimientosParaAmbosJugadores();
+    }
+
+// Método para verificar si ambos jugadores pueden hacer movimientos
+    private boolean hayMovimientosParaAmbosJugadores() {
+        boolean jugador1TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getBlanco(), 0, 0);
+        boolean jugador2TieneMovimientos = movimientosDisponiblesRecursivo(ficha.getNegro(), 0, 0);
+
+//        // Solo muestra un mensaje si un jugador no tiene movimientos disponibles
+//        if (!jugador1TieneMovimientos && !jugador2TieneMovimientos) {
+//            JOptionPane.showMessageDialog(this, "Ningún jugador tiene movimientos disponibles. Fin del juego.");
+//            return false; // Terminamos el juego
+//        }
+        if (!jugador1TieneMovimientos) {
+            JOptionPane.showMessageDialog(null, "No tienes movimientos, se pasa el turno al bot.");
+            jugadorActual = ficha.getNegro(); // Pasar turno al bot
+            actualizarTurno();
+        } else if (!jugador2TieneMovimientos) {
+            JOptionPane.showMessageDialog(this, "El bot se quedó sin movimientos, es tu turno.");
+            jugadorActual = ficha.getBlanco(); // Pasar turno al jugador
+            actualizarTurno();
+        }
+
+        return true;
+    }
+
+    private boolean movimientosDisponiblesRecursivo(int jugador, int fila, int columna) {
+
+        if (fila >= tamaño) {
+            return false;
+        }
+
+        if (tablero[fila][columna] == vacio && puedeInvertir(fila, columna, false)) {
+            return true;
+        }
+
+        if (columna < tamaño - 1) {
+            return movimientosDisponiblesRecursivo(jugador, fila, columna + 1);
+        } else {
+            return movimientosDisponiblesRecursivo(jugador, fila + 1, 0);
+        }
     }
 
     public void actualizarTurno() {
@@ -249,7 +299,7 @@ public class Tablero1vsBot extends JPanel implements Runnable{
             String nombreJugadorActual = (jugadorActual == ficha.getNegro()) ? jugadorNombreJugador : jugadorNombreBot;
             view.getLblContTurno().setText("Turno de: " + nombreJugadorActual);
             lblCirculo.setIcon(new ImageIcon(ClassLoader.getSystemResource(
-                    jugadorActual == ficha.getNegro() ? "Iconos/circuloBlanco.png" : "Iconos/circuloNegro.png")));
+                    jugadorActual == ficha.getNegro() ? "Iconos/circuloNegro.png" : "Iconos/circuloBlanco.png")));
         }
     }
 
@@ -276,21 +326,31 @@ public class Tablero1vsBot extends JPanel implements Runnable{
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
+                // Hacer que el bot se detenga por un segundo
                 Thread.sleep(1000);
+
+                // Obtener el mejor movimiento del bot
                 int[] movimiento = obtenerMejorMovimiento();
-                hacerMovimiento(movimiento[0], movimiento[1]);
-                musica.musicaJuego(true);
-                cambiarTurno();
-                actualizarTurno();
+                if (movimiento[0] != -1 && movimiento[1] != -1) {
+                    // Hacer el movimiento en el tablero
+                    hacerMovimiento(movimiento[0], movimiento[1]);
+                    musica.musicaJuego(true);
+                    cambiarTurno();
+                    actualizarTurno();
+                }
+
                 return null;
             }
 
             @Override
             protected void done() {
-                repaint();
-                if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                    controlador.mostrarGanador();
-                }
+                // Asegúrate de actualizar el gráfico después de que el movimiento esté hecho
+                SwingUtilities.invokeLater(() -> {
+                    repaint();
+                    if (esFinDeJuego()) {
+                        controlador.mostrarGanador();
+                    }
+                });
             }
         };
         worker.execute();

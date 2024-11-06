@@ -258,7 +258,7 @@ public class Tablero1vs1 extends JPanel implements Runnable  {
             return movimientosDisponiblesRecursivo(jugador, fila + 1, 0);
         }
     }
-
+    
     public void actualizarTurno() {
         if (view.getLblContTurno() != null) {
             JLabel lblCirculo = view.getLblCirculo();
