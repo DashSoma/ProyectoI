@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class Tablero1vs1 extends JPanel implements Runnable  {
 
-   public static final int tamaño = 4;
+   public static final int tamaño = 12;
     private static final int vacio = 0;
     public int contadorJugador1 = 0;
     public int contadorJugador2 = 0;
@@ -36,7 +36,6 @@ public class Tablero1vs1 extends JPanel implements Runnable  {
     public String jugadorNombre1 = jugador.getJugador1();
     public String jugadorNombre2 = jugador.getJugador2();
     public int jugadorActual = jugador.getJugadorActual();
-    public String ultimoGanador = "";
     FrmJuego view;
 
     public Tablero1vs1(FrmJuego view, Ficha ficha, Jugador jugador) {
@@ -99,10 +98,10 @@ public class Tablero1vs1 extends JPanel implements Runnable  {
     public void mostrarTabla() {
         jugadorActual = ficha.getNegro();
         tablero = new int[tamaño][tamaño];
-        tablero[1][1] = ficha.getBlanco();
-        tablero[1][2] = ficha.getNegro();
-        tablero[2][1] = ficha.getNegro();
-        tablero[2][2] = ficha.getBlanco();
+          tablero[5][5] = ficha.getBlanco();
+        tablero[5][6] = ficha.getNegro();
+        tablero[6][5] = ficha.getNegro();
+        tablero[6][6] = ficha.getBlanco();
         repaint();
     }
 

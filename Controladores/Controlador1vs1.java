@@ -33,6 +33,7 @@ public class Controlador1vs1 {
         boolean nombresValidos = false;
         while (!nombresValidos) {
             FrmVistaSolicitud v = new FrmVistaSolicitud(null, true, vista);
+            v.setVisible(true);
 
             // Verifica si el usuario ha cancelado
             model.jugadorNombre1 = v.getJugador1();
@@ -104,11 +105,9 @@ public class Controlador1vs1 {
             model.jugadorNombre2 = vista.getLblNombreJ2().getText();
             if (model.jugadorActual == model.ficha.getNegro()) {
                 perdedor = "      " + model.jugadorNombre1 + ". te has rendido\n";
-                model.ultimoGanador = model.jugadorNombre2;
                 ganador = "\n\n" + model.jugadorNombre2 + " ¡HAS GANADO! ";
             } else {
                 perdedor = "      " + model.jugadorNombre2 + ". te has rendido\n";
-                model.ultimoGanador = model.jugadorNombre1;
                 ganador = "\n\n  " + model.jugadorNombre1 + " ¡HAS GANADO ";
             }
             vista.mostrarMansaje(perdedor + ganador, "Juego Abandonado", JOptionPane.WARNING_MESSAGE);
@@ -127,16 +126,12 @@ public class Controlador1vs1 {
         String mensaje;
         if (model.contadorJugador1 > model.contadorJugador2) {
             mensaje = "El ganador es: " + model.jugadorNombre1 + " con " + model.contadorJugador1 + " fichas.";
-            model.ultimoGanador = model.jugadorNombre1;
         } else if (model.contadorJugador2 > model.contadorJugador1) {
             mensaje = "El ganador es: " + model.jugadorNombre2 + " con " + model.contadorJugador2 + " fichas.";
-            model.ultimoGanador = model.jugadorNombre2;
         } else {
             mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
-            model.ultimoGanador = "Empate";
         }
         vista.mostrarMansaje(mensaje, "Felicidades", JOptionPane.INFORMATION_MESSAGE);
-        // Reiniciar variables y preguntar si quieren jugar de nuevo
         model.reestablecerVariables();
         model.tableroBorrado();
         int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "Si deseas, pudes volver a jugar", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);

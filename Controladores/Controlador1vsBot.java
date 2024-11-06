@@ -80,18 +80,15 @@ public class Controlador1vsBot {
         String mensaje = null, titulo = null;
         if (model.contadorJugador1 > model.contadorJugador2) {
             mensaje = "Ganaste con " + model.contadorJugador1 + " fichas.";
-            model.ultimoGanador = model.jugadorNombreJugador;
             titulo = "¡Felicides!";
 
         } else if (model.contadorJugador1 == model.contadorJugador2) {
             mensaje = "Empate. Ambos jugadores tienen " + model.contadorJugador1 + " fichas.";
-            model.ultimoGanador = "Empate";
             model.musica.musicaEmpate(true);
         } 
         
         if (model.contadorJugador2 > model.contadorJugador1) {
             mensaje = "El Bot te ha ganado con " + model.contadorJugador2 + " fichas.";
-            model.ultimoGanador = model.jugadorNombreBot;
             titulo = "¡Suerte en la próxima!";
             model.musica.musicaPerdedor(true);
         }else{

@@ -5,9 +5,7 @@
 package Modelos.Tablero;
 
 import Controladores.Controlador1vsBot;
-import Modelos.Juego1vs1.Ficha;
 import Modelos.Juego1vsBot.FichaBot;
-import Modelos.Juego1vs1.Jugador;
 import Modelos.Juego1vsBot.JugadorBot;
 import Musica.Musica;
 import Vistas.FrmJuegoBot;
@@ -28,7 +26,7 @@ import javax.swing.SwingWorker;
  */
 public class Tablero1vsBot extends JPanel implements Runnable {
 
-    private static final int tamaño = 4;
+    private static final int tamaño = 12;
     private static final int vacio = 0;
 
     public int contadorJugador1 = 0;
@@ -44,9 +42,7 @@ public class Tablero1vsBot extends JPanel implements Runnable {
     public String jugadorNombreJugador = jugador.getJugador();
     public String jugadorNombreBot = jugador.getJugadorBot();
     public int jugadorActual = jugador.getJugadorActual();
-
     FrmJuegoBot view;
-    public String ultimoGanador = "";
 
     public Tablero1vsBot(FrmJuegoBot view, Musica musica) {
         this.view = view;
@@ -123,10 +119,10 @@ public class Tablero1vsBot extends JPanel implements Runnable {
     public void mostrarTabla() {
         jugadorActual = ficha.getNegro();
         tablero = new int[tamaño][tamaño];
-        tablero[1][1] = ficha.getBlanco();
-        tablero[1][2] = ficha.getNegro();
-        tablero[2][1] = ficha.getNegro();
-        tablero[2][2] = ficha.getBlanco();
+        tablero[5][5] = ficha.getBlanco();
+        tablero[5][6] = ficha.getNegro();
+        tablero[6][5] = ficha.getNegro();
+        tablero[6][6] = ficha.getBlanco();
         repaint();
     }
 
@@ -208,7 +204,7 @@ public class Tablero1vsBot extends JPanel implements Runnable {
     public boolean hacerMovimiento(int filaSeleccionada, int columnaSeleccionada) {
         tablero[filaSeleccionada][columnaSeleccionada] = jugadorActual;
         puedeInvertir(filaSeleccionada, columnaSeleccionada, false);
-        actualizarContadores(); 
+        actualizarContadores();
         return true;
     }
 
