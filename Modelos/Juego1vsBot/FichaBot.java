@@ -8,11 +8,11 @@ package Modelos.Juego1vsBot;
  *
  * @author munoz
  */
-public class FichaBoot extends Thread{
+public class FichaBot extends Thread{
     public int negro = 1;
     public int blanco = 2;
     
-    public FichaBoot() {
+    public FichaBot() {
     }
 
     public int getNegro() {

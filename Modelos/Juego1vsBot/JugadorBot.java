@@ -8,7 +8,7 @@ package Modelos.Juego1vsBot;
  *
  * @author dashs
  */
-public class JugadorBoot {
+public class JugadorBot {
 
     private String nombre;
     private int color;
@@ -16,15 +16,15 @@ public class JugadorBoot {
     public String jugadorBot = "   Bot";
     public int jugadorActual;
 
-    public JugadorBoot() {
+    public JugadorBot() {
     }
 
-    public JugadorBoot(String nombre, int color) {
+    public JugadorBot(String nombre, int color) {
         this.nombre = nombre;
         this.color = color;
     }
 
-    public JugadorBoot(String jugador, String jugadorBot) {
+    public JugadorBot(String jugador, String jugadorBot) {
         this.jugador = jugador;
         this.jugadorBot = jugadorBot;
     }

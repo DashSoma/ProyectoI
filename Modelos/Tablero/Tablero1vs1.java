@@ -247,6 +247,8 @@ public class Tablero1vs1 extends JPanel {
     public void reestablecerVariables() {
         view.getLblJugador1().setText("");
         view.getLblJugador2().setText("");
+        view.getLblNombreFichasActuales1().setText("");
+        view.getLblNombreFichasActuales2().setText("");
         view.setLblNombreJ1("");
         view.setLblNombreJ2("");
         view.setLblContador1("");

@@ -4,12 +4,13 @@
  */
 package Modelos.Tablero;
 
+import Controladores.Controlador1vsBot;
 import Modelos.Juego1vs1.Ficha;
-import Modelos.Juego1vsBot.FichaBoot;
+import Modelos.Juego1vsBot.FichaBot;
 import Modelos.Juego1vs1.Jugador;
-import Modelos.Juego1vsBot.JugadorBoot;
+import Modelos.Juego1vsBot.JugadorBot;
 import Musica.Musica;
-import Vistas.FrmJuegoBoot;
+import Vistas.FrmJuegoBot;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -26,27 +27,30 @@ import javax.swing.SwingWorker;
  */
 public class Tablero1vsBot extends JPanel {
 
-    public static final int tamaño = 4;
+    private static final int tamaño = 4;
     private static final int vacio = 0;
 
-    private int contadorJugador1 = 0;
-    private int contadorJugador2 = 0;
+    public int contadorJugador1 = 0;
+    public int contadorJugador2 = 0;
     public boolean juegoEnProgreso = false;
     private int[][] tablero;
     public int filaSeleccionada;
     public int columnaSeleccionada;
+    public Musica musica;
+    public FichaBot ficha = new FichaBot();
+    public JugadorBot jugador = new JugadorBot();
+    Controlador1vsBot controlador;
+    public String jugadorNombreJugador = jugador.getJugador();
+    public String jugadorNombreBot = jugador.getJugadorBot();
+    public int jugadorActual = jugador.getJugadorActual();
 
-    FichaBoot ficha = new FichaBoot();
-    JugadorBoot jugador = new JugadorBoot();
-    String jugadorNombreJugador = jugador.getJugador();
-    String jugadorNombreBot = jugador.getJugadorBot();
-    int jugadorActual = jugador.getJugadorActual();
-
-    FrmJuegoBoot view;
+    FrmJuegoBot view;
     public String ultimoGanador = "";
 
-    public Tablero1vsBot(FrmJuegoBoot view) {
+    public Tablero1vsBot(FrmJuegoBot view,Musica musica) {
         this.view = view;
+        this.musica = musica;
+        controlador = new Controlador1vsBot(this, view);
         tablero = new int[tamaño][tamaño];
         jugadorActual = ficha.getNegro();
         addMouseListener(new MouseAdapter() {
@@ -57,10 +61,11 @@ public class Tablero1vsBot extends JPanel {
                 if (esMovimientoValido(filaSeleccionada, columnaSeleccionada)) {
                     hacerMovimiento(filaSeleccionada, columnaSeleccionada);
                     cambiarTurno();
+                    musica.musicaJuego(true);
                     actualizarTurno();
                     repaint();
                     if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                        mostrarGanador();
+                        controlador.mostrarGanador();
                     } else {
                         if (jugadorActual == ficha.getBlanco()) {
                             realizarMovimientoBot();
@@ -125,9 +130,18 @@ public class Tablero1vsBot extends JPanel {
     }
 
     public void reestablecerVariables() {
+        view.getLblJugador1().setText("");
+        view.getLblJugador2().setText("");
+        view.getLblNombreFichasActuales1().setText("");
+        view.getLblNombreFichasActuales2().setText("");
+        view.setLblNombreJ1("");
+        view.setLblNombreJ2("");
+        view.setLblContador1("");
+        view.setLblContador2("");
+        view.setLblContTurno("");
+        view.getLblCirculo().setIcon(null);
         contadorJugador1 = 0;
         contadorJugador2 = 0;
-        juegoEnProgreso = false;
         repaint();
     }
 
@@ -257,6 +271,7 @@ public class Tablero1vsBot extends JPanel {
                 Thread.sleep(1000);
                 int[] movimiento = obtenerMejorMovimiento();
                 hacerMovimiento(movimiento[0], movimiento[1]);
+                musica.musicaJuego(true);
                 cambiarTurno();
                 actualizarTurno();
                 return null;
@@ -266,92 +281,11 @@ public class Tablero1vsBot extends JPanel {
             protected void done() {
                 repaint();
                 if (tablaLlena() || ambosJugadoresSinMovimientos()) {
-                    mostrarGanador();
+                    controlador.mostrarGanador();
                 }
             }
         };
         worker.execute();
 
-    }
-
-    public void iniciarJuegobot() {
-        JOptionPane.showMessageDialog(null, "El juego ha comenzado \n\nInicias con las blancas", "¡Ha jugar!", JOptionPane.INFORMATION_MESSAGE);
-        view.setLblNombreJ1("Boot (Negro):");
-        view.setLblNombreJ2("Tú (Blanco):");
-        view.getLblContador1().setText(String.valueOf(contadorJugador1));
-        view.getLblContador2().setText(String.valueOf(contadorJugador2));
-        contadorJugador1 = 2;
-        contadorJugador2 = 2;
-        mostrarTabla();
-        actualizarTurno();
-        juegoEnProgreso = true;
-
-    }
-
-    public void reiniciar() {
-
-        int result = JOptionPane.showConfirmDialog(null, "¿Quieres jugar de nuevo?", "Reiniciar juego",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (result == JOptionPane.YES_OPTION) {
-            // Reiniciar el estado del juego
-            juegoEnProgreso = false;
-            repaint();
-            reestablecerVariables();
-            iniciarJuegobot();
-        }
-    }
-
-    public boolean rendirse() {
-
-        // Obtén los nombres de los jugadores
-        String nombreJugadorActual = "Estimado(a)";
-
-        // Pregunta de confirmación personalizada con el nombre del jugador
-        int respuesta = JOptionPane.showConfirmDialog(null, nombreJugadorActual + ", ¿deseas rendirte?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-
-            JOptionPane.showMessageDialog(view, """
-                                                Te has rendido
-                                                
-                                                El bot te gano por deafult""", "Juego Abandonado", JOptionPane.WARNING_MESSAGE);
-
-            // Reinicia el estado del juego
-            juegoEnProgreso = false;
-            reestablecerVariables();
-            tableroBorrado();
-            view.dispose();
-            return true;
-        }
-        return false;
-    }
-
-    private void mostrarGanador() {
-        String mensaje;
-        if (contadorJugador1 > contadorJugador2) {
-            mensaje = "Ganaste con " + contadorJugador1 + " fichas.";
-            ultimoGanador = jugadorNombreJugador;
-        } else if (contadorJugador2 > contadorJugador1) {
-            mensaje = "Ganó " + jugadorNombreBot + " con " + contadorJugador2 + " fichas.";
-            ultimoGanador = jugadorNombreBot;
-        } else {
-            mensaje = "Empate. Ambos jugadores tienen " + contadorJugador1 + " fichas.";
-            ultimoGanador = "Empate";
-        }
-
-        JOptionPane.showMessageDialog(view, mensaje);
-
-        // Reiniciar variables y preguntar si quieren jugar de nuevo
-        reestablecerVariables();
-        tableroBorrado();
-        int result = JOptionPane.showConfirmDialog(view, "¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            juegoEnProgreso = false;
-            iniciarJuegobot();
-        } else {
-            juegoEnProgreso = false;
-            view.dispose();
-        }
     }
 }

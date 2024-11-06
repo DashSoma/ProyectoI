@@ -4,9 +4,12 @@
  */
 package Vistas;
 
+import Controladores.Controlador1vsBot;
+import Modelos.Juego1vs1.Jugador;
 import Modelos.Tablero.Tablero1vsBot;
-import Modelos.Juego1vsBot.FichaBoot;
-import Modelos.Juego1vsBot.JugadorBoot;
+import Modelos.Juego1vsBot.FichaBot;
+import Modelos.Juego1vsBot.JugadorBot;
+import Musica.Musica;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,29 +22,34 @@ import javax.swing.border.EmptyBorder;
  *
  * @author dashs
  */
-public class FrmJuegoBoot extends javax.swing.JDialog {
+public class FrmJuegoBot extends javax.swing.JDialog {
 
     /**
-     * Creates new form FrmJuegoBoot
+     * Creates new form FrmJuegoBot
      */
-    FrmJuegoBoot view;
-    FichaBoot ficha = new FichaBoot();
-    JugadorBoot jugador = new JugadorBoot();
-    JugadorBoot jugador1;
-    int jugadorActual = jugador.getJugadorActual();
+    FichaBot ficha;
+    Controlador1vsBot controlador;
+    Tablero1vsBot tablero;
+    JugadorBot jugador;
+    Musica musica;
+    JugadorBot jugador1;
     private String lblTurno;
-    private Tablero1vsBot bot;
 
-    public FrmJuegoBoot(java.awt.Frame parent, boolean modal) {
+    public FrmJuegoBot(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-        jugador1 = new JugadorBoot("Jugador 1", 1);
-        bot = new Tablero1vsBot(this);
+        jugador1 = new JugadorBot("Jugador 1", 1);
+
+        ficha = new FichaBot();
+        jugador = new JugadorBot();
+        musica = new Musica();
+        tablero = new Tablero1vsBot(this, musica);
+        controlador = new Controlador1vsBot(tablero, this);
         JPanel contenedorTablero = new JPanel(new BorderLayout());
         contenedorTablero.setBorder(new EmptyBorder(80, 80, 80, 80));
-        contenedorTablero.add(bot, BorderLayout.CENTER);
+        contenedorTablero.add(tablero, BorderLayout.CENTER);
         add(contenedorTablero, BorderLayout.CENTER);
         iniciarFicha();
     }
@@ -58,20 +66,36 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         return lblContador1;
     }
 
-    public JLabel getLblContador2() {
-        return lblContador2;
-    }
-
     public void setLblContador1(String texto) {
         this.lblContador1.setText(texto);
+    }
+
+    public JLabel getLblContador2() {
+        return lblContador2;
     }
 
     public void setLblContador2(String texto) {
         this.lblContador2.setText(texto);
     }
 
-    public void setLblContTurno(JLabel lblContTurno) {
-        this.lblContTurno = lblContTurno;
+    public void setLblContTurno(String texto) {
+        this.lblContTurno.setText(texto);
+    }
+
+    public JLabel getLblNombreFichasActuales1() {
+        return lblNombreFichasActuales1;
+    }
+
+    public void setLblNombreFichasActuales1(String texto) {
+        this.lblNombreFichasActuales1.setText(texto);
+    }
+
+    public JLabel getLblNombreFichasActuales2() {
+        return lblNombreFichasActuales2;
+    }
+
+    public void setLblNombreFichasActuales2(String texto) {
+        this.lblNombreFichasActuales2.setText(texto);
     }
 
     public JLabel getLblContTurno() {
@@ -139,6 +163,8 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         lblContTurno = new javax.swing.JLabel();
         lblCirculo = new javax.swing.JLabel();
         BtnInfo = new javax.swing.JButton();
+        lblNombreFichasActuales1 = new javax.swing.JLabel();
+        lblNombreFichasActuales2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -230,37 +256,40 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
             }
         });
 
+        lblNombreFichasActuales1.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+
+        lblNombreFichasActuales2.setFont(new java.awt.Font("Showcard Gothic", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblJugador1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(lblNombreFichasActuales1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombreJ1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblJugador2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombreFichasActuales2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblContador1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BtnReiniciar)
                 .addGap(91, 91, 91)
                 .addComponent(pnlTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnSalir)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(lblJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblNombreJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblContador1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombreJ2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblContador2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addComponent(BtnSalir))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,19 +297,27 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblJugador1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                            .addComponent(lblJugador1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                             .addComponent(lblNombreJ1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblJugador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNombreJ2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblContador1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblContador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(lblNombreFichasActuales1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblContador1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNombreFichasActuales2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(414, 414, 414)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(BtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,11 +330,11 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReiniciarActionPerformed
-        bot.reiniciar();
+        controlador.reiniciar();
     }//GEN-LAST:event_BtnReiniciarActionPerformed
 
     private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
-        bot.rendirse();
+        controlador.rendirse();
     }//GEN-LAST:event_BtnSalirActionPerformed
 
     private void BtnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInfoActionPerformed
@@ -307,7 +344,7 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnInfoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        bot.iniciarJuegobot();
+        controlador.iniciarJuegobot();
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -320,6 +357,13 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    public void mostrarMansaje(String texto, String titulo, int tipoMensaje) {
+        JOptionPane.showMessageDialog(this, texto, titulo, tipoMensaje);
+    }
+
+    public int mostrarMensajeConfirmacion(String texto, String titulo, int tipoRespuesta, int tipoMensaje) {
+        return JOptionPane.showConfirmDialog(this, texto, titulo, tipoRespuesta, tipoMensaje);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnInfo;
@@ -331,6 +375,8 @@ public class FrmJuegoBoot extends javax.swing.JDialog {
     private javax.swing.JLabel lblContador2;
     private javax.swing.JLabel lblJugador1;
     private javax.swing.JLabel lblJugador2;
+    private javax.swing.JLabel lblNombreFichasActuales1;
+    private javax.swing.JLabel lblNombreFichasActuales2;
     private javax.swing.JLabel lblNombreJ1;
     private javax.swing.JLabel lblNombreJ2;
     private javax.swing.JPanel pnlTurno;

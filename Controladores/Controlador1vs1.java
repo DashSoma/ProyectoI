@@ -15,8 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Controlador1vs1 {
 
-   
-    Tablero1vs1 model ;
+    Tablero1vs1 model;
     FrmJuego vista;
 
     public Controlador1vs1(Tablero1vs1 model, FrmJuego vista) {
@@ -70,8 +69,15 @@ public class Controlador1vs1 {
         }
 
         model.mostrarTabla();
+        vista.getLblJugador1().setText("Jugador:");
+        vista.getLblJugador2().setText("Jugador:");
+        vista.getLblNombreFichasActuales1().setText("Fichas Actuales:");
+        vista.getLblNombreFichasActuales2().setText("Fichas Actuales:");
+        vista.getLblContador1().setText(String.valueOf("2"));
+        vista.getLblContador2().setText(String.valueOf("2"));
         model.actualizarTurno();
         model.juegoEnProgreso = true;
+
     }
 
     public void reiniciarJuego() {
@@ -80,7 +86,7 @@ public class Controlador1vs1 {
             vista.mostrarMansaje("¡No hay ninguna partida en progreso para reiniciar!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "Reiniciar juego", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "Reiniciar juego", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (result == JOptionPane.YES_OPTION) {
             // Reiniciar el estado del juego
@@ -92,7 +98,7 @@ public class Controlador1vs1 {
     }
 
     public boolean rendirse() {
-        
+
         // Obtén los nombres de los jugadores
         String nombreJugadorActual = (model.jugadorActual == model.ficha.getNegro()) ? vista.getLblNombreJ1().getText() : vista.getLblNombreJ2().getText();
 
@@ -125,7 +131,7 @@ public class Controlador1vs1 {
         return false;
     }
 
-  public void mostrarGanador() {
+    public void mostrarGanador() {
 
         String mensaje;
         if (model.contadorJugador1 > model.contadorJugador2) {
@@ -139,12 +145,12 @@ public class Controlador1vs1 {
             model.ultimoGanador = "Empate";
         }
 
-        vista.mostrarMansaje(mensaje,"Felicidades",JOptionPane.INFORMATION_MESSAGE);
+        vista.mostrarMansaje(mensaje, "Felicidades", JOptionPane.INFORMATION_MESSAGE);
 
         // Reiniciar variables y preguntar si quieren jugar de nuevo
         model.reestablecerVariables();
         model.tableroBorrado();
-        int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+        int result = vista.mostrarMensajeConfirmacion("¿Quieres jugar de nuevo?", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
             model.juegoEnProgreso = false;
             iniciarJuego();

@@ -31,7 +31,7 @@ public class Musica {
                 }
             } else {
                 // Si la música no está sonando, iníciala
-                java.net.URL resource = getClass().getResource("/musica/Inicio.wav");
+                java.net.URL resource = getClass().getResource("/Musica/Inicio.wav");
                 if (resource == null) {
                     System.err.println("No se encontró el archivo de audio en la ruta especificada.");
                     return;
@@ -58,7 +58,7 @@ public class Musica {
                     clip.close();
                     clip = null;
                 } else {
-                    java.net.URL resource = getClass().getResource("/musica/ComerFicha.wav");
+                    java.net.URL resource = getClass().getResource("/Musica/ComerFicha.wav");
                     if (resource == null) {
                         System.err.println("No se encontró el archivo de audio en la ruta especificada.");
                         return;
@@ -77,4 +77,97 @@ public class Musica {
             }
         }
     }
+    
+    public void musicaGanador(boolean estado) {
+        if (estado) {
+            try {
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                    clip.close();
+                    clip = null;
+                } else {
+                    java.net.URL resource = getClass().getResource("/Musica/Ganador.wav");
+                    if (resource == null) {
+                        System.err.println("No se encontró el archivo de audio en la ruta especificada.");
+                        return;
+                    }
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resource);
+                    clip = AudioSystem.getClip();
+                    clip.open(audioInputStream);
+                    clip.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (clip != null && clip.isRunning()) {
+                clip.stop();
+            }
+        }
+    }
+    
+    public void musicaPerdedor(boolean estado) {
+        try {
+            if (musicaSonando) {
+                // Si la música está sonando, deténla
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                    clip.close();
+                    clip = null;
+                    musicaSonando = false; // Actualiza el estado
+
+                }
+            } else {
+                // Si la música no está sonando, iníciala
+                java.net.URL resource = getClass().getResource("/Musica/Perdedor.wav");
+                if (resource == null) {
+                    System.err.println("No se encontró el archivo de audio en la ruta especificada.");
+                    return;
+                }
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resource);
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                musicaSonando = true; // Actualiza el estado
+                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                volumeControl.setValue(-10.0f); // Ajusta este valor para cambiar el volumen
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void musicaEmpate(boolean estado) {
+        try {
+            if (musicaSonando) {
+                // Si la música está sonando, deténla
+                if (clip != null && clip.isRunning()) {
+                    clip.stop();
+                    clip.close();
+                    clip = null;
+                    musicaSonando = false; // Actualiza el estado
+
+                }
+            } else {
+                // Si la música no está sonando, iníciala
+                java.net.URL resource = getClass().getResource("/Musica/Empatar.wav");
+                if (resource == null) {
+                    System.err.println("No se encontró el archivo de audio en la ruta especificada.");
+                    return;
+                }
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resource);
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                musicaSonando = true; // Actualiza el estado
+                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                volumeControl.setValue(-10.0f); // Ajusta este valor para cambiar el volumen
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
